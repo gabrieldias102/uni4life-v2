@@ -8,10 +8,10 @@ export default function Navbar() {
   return (
     <>
       <nav className="bg-white border-b text-gray-500 flex justify-around w-screen">
-        <div className="p-4">
+        <div className="flex items-center p-4">
           <p className="font-bold text-xl text-primary">Uni4Life</p>
         </div>
-        <section className="flex flex-row gap-4">
+        <section className="flex flex-row ">
           <NavbarItem text="Feed" to="/feed">
             <FaHouse />
           </NavbarItem>
