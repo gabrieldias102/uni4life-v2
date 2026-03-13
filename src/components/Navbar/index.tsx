@@ -12,16 +12,16 @@ export default function Navbar() {
           <p className="font-bold text-xl text-primary">Uni4Life</p>
         </div>
         <section className="flex flex-row gap-4">
-          <NavbarItem text="Feed">
+          <NavbarItem text="Feed" to="/feed">
             <FaHouse />
           </NavbarItem>
-          <NavbarItem text="Conexões">
+          <NavbarItem text="Conexões" to="/conections">
             <FaAddressBook />
           </NavbarItem>
-          <NavbarItem text="Publicar">
+          <NavbarItem text="Publicar" to="/publish">
             <IoMdAddCircleOutline />
           </NavbarItem>
-          <NavbarItem text="Perfil">
+          <NavbarItem text="Perfil" to="/profile">
             <CgProfile />
           </NavbarItem>
         </section>

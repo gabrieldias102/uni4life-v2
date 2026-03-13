@@ -1,13 +1,23 @@
+import { NavLink } from "react-router-dom";
+
 type NavbarItemProps = {
   children: React.ReactNode;
   text: string;
+  to: string;
 };
 
-export default function NavbarItem({ text, children }: NavbarItemProps) {
+export default function NavbarItem({ text, children, to }: NavbarItemProps) {
   return (
-    <div className="flex flex-row items-center gap-2 p-2 hover:text-primary hover:bg-soft rounded-2xl cursor-pointer bg-red m-2">
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex flex-row items-center gap-2 p-2 hover:text-primary hover:bg-soft rounded-2xl cursor-pointer m-2 ${
+          isActive ? "text-primary bg-soft" : ""
+        }`
+      }
+    >
       {children}
       <p> {text} </p>
-    </div>
+    </NavLink>
   );
 }
