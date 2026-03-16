@@ -11,13 +11,13 @@ export default function NavbarItem({ text, children, to }: NavbarItemProps) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex flex-row items-center gap-2 p-3 hover:text-primary hover:bg-soft rounded-4xl cursor-pointer m-3 ${
+        `mx-1 flex min-w-0 flex-row items-center gap-2 rounded-4xl p-3 hover:bg-soft hover:text-primary ${
           isActive ? "text-primary bg-soft" : ""
         }`
       }
     >
       {children}
-      <p> {text} </p>
+      <p className="truncate">{text}</p>
     </NavLink>
   );
 }
