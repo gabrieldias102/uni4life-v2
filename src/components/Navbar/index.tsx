@@ -6,7 +6,7 @@ import { BsBoxArrowDown } from "react-icons/bs";
 
 export default function Navbar() {
   return (
-    <nav className="flex w-full items-center justify-between border-b bg-white px-4 text-gray-500">
+    <nav className="px-32 flex w-full items-center justify-around border-b bg-white  text-gray-500">
       <div className="flex min-w-0 items-center py-4">
         <p className="text-xl font-bold text-primary">Uni4Life</p>
       </div>

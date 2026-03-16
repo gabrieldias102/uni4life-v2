@@ -1,4 +1,5 @@
 import { IoCheckmark, IoPersonAddOutline } from "react-icons/io5";
+import ActionButton from "../ActionButton";
 
 export type FriendsCardType = "conectar" | "amigos";
 
@@ -34,16 +35,11 @@ export default function FriendsCard({
         <h1 className="text-sm text-gray-600">{curiosidade}</h1>
       </div>
       <div className="w-3/12">
-        <button
-          className={`flex cursor-pointer items-center justify-center gap-2 rounded-2xl border p-3 ${
-            isConnected
-              ? "border-gray-200 bg-white text-gray-700"
-              : "border-primary bg-primary text-white"
-          }`}
-        >
-          {isConnected ? <IoCheckmark /> : <IoPersonAddOutline />}
-          {isConnected ? "Conectado" : "Conectar"}
-        </button>
+        <ActionButton
+          color={isConnected ? "white" : "primary"}
+          icon={isConnected ? <IoCheckmark /> : <IoPersonAddOutline />}
+          text={isConnected ? "Conectado" : "Conectar"}
+        />
       </div>
     </div>
   );
