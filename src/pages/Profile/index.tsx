@@ -1,7 +1,11 @@
+import ProfielCard from "../../components/ProfileCard";
+
 export default function Profile() {
   return (
     <div>
-      <div></div> {/* resumo do perfil */}
+      <div>
+        <ProfielCard />
+      </div>
       <div>
         {/* selector das informações */}
         <div></div> {/* publicaos */}
