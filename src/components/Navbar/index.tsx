@@ -2,9 +2,21 @@ import NavbarItem from "../NavbarItem";
 import { FaAddressBook, FaHouse } from "react-icons/fa6";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import { BsBoxArrowDown } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Navbar() {
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+
+  const displayName = user?.displayName?.trim() || user?.email || "Usuario";
+  const avatarSeed = encodeURIComponent(displayName);
+
+  async function handleLogout() {
+    await logout();
+    navigate("/login", { replace: true });
+  }
+
   return (
     <nav className="px-32 flex w-full items-center justify-around border-b bg-white  text-gray-500">
       <div className="flex min-w-0 items-center py-4">
@@ -26,14 +38,25 @@ export default function Navbar() {
         </NavbarItem>
       </section>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <img
-          src="https://api.dicebear.com/9.x/adventurer/svg?seed=John Doe"
+          src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${avatarSeed}`}
           alt="Avatar"
           className="w-10 h-10 rounded-full"
         />
-        <p className="text-sm text-black font-semibold">Nome Teste</p>
-        <BsBoxArrowDown size={20} className="rotate-270" />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-black">
+            {displayName}
+          </p>
+          <p className="truncate text-xs text-gray-500">{user?.email}</p>
+        </div>
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-600 transition hover:border-primary hover:text-primary"
+        >
+          Sair
+        </button>
       </div>
     </nav>
   );
