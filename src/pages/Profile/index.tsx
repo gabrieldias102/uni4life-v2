@@ -1,4 +1,5 @@
 import ProfielCard from "../../components/ProfileCard";
+import ProfilePostSwitcher from "../../components/ProfilePostSwitcher";
 
 export default function Profile() {
   return (
@@ -6,10 +7,9 @@ export default function Profile() {
       <div>
         <ProfielCard />
       </div>
+
       <div>
-        {/* selector das informações */}
-        <div></div> {/* publicaos */}
-        <div></div> {/* republicado */}
+        <ProfilePostSwitcher />
       </div>
     </div>
   );

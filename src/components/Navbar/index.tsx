@@ -26,11 +26,13 @@ export default function Navbar() {
         </NavbarItem>
       </section>
 
-      <div className="flex min-w-0 items-center gap-2 py-4">
-        <div>
-          <p className="text-sm text-black">Nome</p>
-        </div>
-
+      <div className="flex items-center gap-2">
+        <img
+          src="https://api.dicebear.com/9.x/adventurer/svg?seed=John Doe"
+          alt="Avatar"
+          className="w-10 h-10 rounded-full"
+        />
+        <p className="text-sm text-black font-semibold">Nome Teste</p>
         <BsBoxArrowDown size={20} className="rotate-270" />
       </div>
     </nav>
