@@ -3,7 +3,7 @@ import { FaAddressBook, FaHouse } from "react-icons/fa6";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/useAuth";
 
 export default function Navbar() {
   const { logout, user } = useAuth();

@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { FirebaseError } from "firebase/app";
 import { Link, Navigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/useAuth";
 
 const firebaseErrorMessages: Record<string, string> = {
   "auth/email-already-in-use": "Ja existe uma conta com este e-mail.",

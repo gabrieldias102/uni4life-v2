@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/useAuth";
 
 const firebaseErrorMessages: Record<string, string> = {
   "auth/invalid-credential": "E-mail ou senha invalidos.",
