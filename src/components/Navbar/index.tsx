@@ -2,7 +2,7 @@ import NavbarItem from "../NavbarItem";
 import { FaAddressBook, FaHouse } from "react-icons/fa6";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 
 export default function Navbar() {
@@ -19,9 +19,11 @@ export default function Navbar() {
 
   return (
     <nav className="px-32 flex w-full items-center justify-around border-b bg-white  text-gray-500">
-      <div className="flex min-w-0 items-center py-4">
-        <p className="text-xl font-bold text-primary">Uni4Life</p>
-      </div>
+      <NavLink to="feed">
+        <div className="flex min-w-0 items-center py-4">
+          <p className="text-xl font-bold text-primary">Uni4Life</p>
+        </div>
+      </NavLink>
 
       <section className="flex min-w-0 flex-1 justify-center">
         <NavbarItem text="Feed" to="/feed">
