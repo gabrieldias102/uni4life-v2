@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProfilePostList from "../../components/ProfilePostList";
-import ProfielCard from "../../components/ProfileCard";
+import ProfileCard from "../../components/ProfileCard";
 import ProfilePostSwitcher, {
   type ProfilePostView,
 } from "../../components/ProfilePostSwitcher";
@@ -14,7 +14,7 @@ export default function Profile() {
 
   return (
     <>
-      <ProfielCard />
+      <ProfileCard />
       <ProfilePostSwitcher value={activeView} onChange={setActiveView} />
       <ProfilePostList posts={posts} loading={loading} error={error} />
     </>
