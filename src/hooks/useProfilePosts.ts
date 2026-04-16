@@ -1,36 +1,25 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import type { ProfilePostView } from "../components/ProfilePostSwitcher";
 import {
   getProfilePostsByType,
-  type MockProfilePost,
 } from "../mocks/profilePosts";
 
 export function useProfilePosts(
   userId: string | undefined,
   activeView: ProfilePostView
 ) {
-  const [posts, setPosts] = useState<MockProfilePost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const isAuthenticated = Boolean(userId);
 
-  useEffect(() => {
-    if (!userId) {
-      setPosts([]);
-      setLoading(false);
-      setError("Usuario nao autenticado.");
-      return;
+  const posts = useMemo(() => {
+    if (!isAuthenticated) {
+      return [];
     }
 
-    setLoading(true);
-    setError(null);
+    return getProfilePostsByType(activeView);
+  }, [activeView, isAuthenticated]);
 
-    const timeoutId = window.setTimeout(() => {
-      setPosts(getProfilePostsByType(activeView));
-      setLoading(false);
-    }, 150);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [activeView, userId]);
+  const loading = false;
+  const error = isAuthenticated ? null : "Usuario nao autenticado.";
 
   return { posts, loading, error };
 }
