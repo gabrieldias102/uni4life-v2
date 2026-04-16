@@ -1,17 +1,18 @@
 # Uni4Life v2
 
-Frontend da Uni4Life construído com React, TypeScript e Vite. O projeto funciona como a base da interface da aplicação, com autenticação via Firebase e navegação protegida entre as páginas principais.
+Frontend da Uni4Life construido com React, TypeScript e Vite. O projeto funciona como a base da interface da aplicacao, com autenticacao via Firebase e navegacao protegida entre as paginas principais.
 
-## Visão geral
+## Visao geral
 
-Hoje a aplicação já contempla:
+Hoje a aplicacao ja contempla:
 
-- autenticação de usuários com Firebase Auth
-- cadastro com atualização de nome de exibição
+- autenticacao de usuarios com Firebase Auth
+- cadastro com atualizacao de nome de exibicao
 - login e logout
-- rotas protegidas para áreas autenticadas
-- páginas de feed, conexões, publicação e perfil
+- rotas protegidas para areas autenticadas
+- paginas de feed, conexoes, publicacao e perfil
 - interface estilizada com Tailwind CSS
+- camada de servicos para consumo da API social
 
 ## Stack principal
 
@@ -32,22 +33,23 @@ Antes de rodar o projeto, tenha instalado:
 
 ## Como rodar localmente
 
-1. Clone o repositório:
+1. Clone o repositorio:
 
 ```bash
 git clone <url-do-repositorio>
 cd uni4life-v2
 ```
 
-2. Instale as dependências:
+2. Instale as dependencias:
 
 ```bash
 npm install
 ```
 
-3. Configure as variáveis de ambiente no arquivo `.env`:
+3. Configure as variaveis de ambiente no arquivo `.env`:
 
 ```env
+VITE_API_BASE_URL=http://localhost:8000
 VITE_FIREBASE_API_KEY=
 VITE_FIREBASE_AUTH_DOMAIN=
 VITE_FIREBASE_PROJECT_ID=
@@ -62,45 +64,74 @@ VITE_FIREBASE_APP_ID=
 npm run dev
 ```
 
-5. Abra no navegador o endereço exibido pelo Vite, normalmente:
+5. Abra no navegador o endereco exibido pelo Vite, normalmente:
 
 ```bash
 http://localhost:5173
 ```
 
-## Scripts disponíveis
+## Scripts disponiveis
 
 ```bash
 npm run dev      # inicia o servidor de desenvolvimento
-npm run build    # gera a build de produção
+npm run build    # gera a build de producao
 npm run preview  # sobe a build gerada localmente
-npm run lint     # executa a análise estática com ESLint
+npm run lint     # executa a analise estatica com ESLint
 ```
 
-## Variáveis de ambiente
+## Variaveis de ambiente
 
-O projeto utiliza o Firebase para autenticação. As credenciais são lidas a partir de `import.meta.env` no arquivo de configuração em `src/services/firebase.ts`.
+O projeto utiliza:
+
+- `VITE_API_BASE_URL` para definir a URL base da API FastAPI consumida em `src/services/api.ts`
+- credenciais do Firebase lidas a partir de `import.meta.env` em `src/services/firebase.ts`
 
 Se for configurar um novo projeto Firebase, garanta que:
 
-- o provedor de autenticação por e-mail e senha esteja habilitado
+- o provedor de autenticacao por e-mail e senha esteja habilitado
 - as chaves usadas no `.env` correspondam ao app web criado no console do Firebase
 
 ## Estrutura do projeto
 
 ```text
 src/
-  components/   # componentes reutilizáveis da interface
-  contexts/     # contexto global de autenticação
+  components/   # componentes reutilizaveis da interface
+  contexts/     # contexto global de autenticacao
+  hooks/        # hooks da aplicacao
   mocks/        # dados simulados usados na interface
-  pages/        # páginas principais da aplicação
-  routes/       # proteção e composição de rotas
-  services/     # integrações externas, como Firebase
+  pages/        # paginas principais da aplicacao
+  routes/       # protecao e composicao de rotas
+  services/     # integracoes externas e cliente HTTP da API
+```
+
+## Servicos da API
+
+As funcoes para consumo da API social ficam em `src/services`.
+
+Arquivos principais:
+
+- `src/services/api.ts`: cliente HTTP base com tratamento de erro
+- `src/services/socialApi.types.ts`: tipos de payload e resposta
+- `src/services/users.ts`: funcoes de usuarios e conexoes
+- `src/services/posts.ts`: funcoes de posts, comentarios e reposts
+- `src/services/index.ts`: barrel export para facilitar imports
+
+Exemplo de uso:
+
+```ts
+import { createPost, listPosts, listUsers } from "./services";
+
+const users = await listUsers();
+const posts = await listPosts();
+const newPost = await createPost({
+  user_id: 1,
+  content: "Meu primeiro post",
+});
 ```
 
 ## Rotas atuais
 
-Rotas públicas:
+Rotas publicas:
 
 - `/login`
 - `/register`
@@ -112,18 +143,18 @@ Rotas protegidas:
 - `/publish`
 - `/profile`
 
-Ao acessar `/`, o usuário é redirecionado para `/feed`.
+Ao acessar `/`, o usuario e redirecionado para `/feed`.
 
-## Autenticação
+## Autenticacao
 
-O estado de autenticação é centralizado em `src/contexts/AuthContext.tsx`.
+O estado de autenticacao e centralizado em `src/contexts/AuthContext.tsx`.
 
-Esse contexto é responsável por:
+Esse contexto e responsavel por:
 
-- observar mudanças de sessão com `onAuthStateChanged`
-- autenticar usuários com e-mail e senha
+- observar mudancas de sessao com `onAuthStateChanged`
+- autenticar usuarios com e-mail e senha
 - registrar novas contas
 - atualizar o `displayName` no cadastro
-- encerrar a sessão do usuário
+- encerrar a sessao do usuario
 
-As rotas privadas utilizam `ProtectedRoute` para bloquear acesso quando não existe usuário autenticado.
+As rotas privadas utilizam `ProtectedRoute` para bloquear acesso quando nao existe usuario autenticado.
