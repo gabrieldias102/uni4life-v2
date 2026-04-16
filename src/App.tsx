@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Conections from "./pages/Conections";
 import Feed from "./pages/Feed";
