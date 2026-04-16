@@ -9,7 +9,7 @@ export default function Conections() {
     <div className="mx-auto flex max-w-3xl flex-col justify-center gap-6 pt-12">
       <p className="text-3xl text-black font-bold">Conexões</p>
       <div className="gap-5">
-        <p className="text-gray-600 uppercase font-bold text-md">
+        <p className="text-gray-600 uppercase font-bold text-md pb-4">
           Sugestões para você
         </p>
         <div>

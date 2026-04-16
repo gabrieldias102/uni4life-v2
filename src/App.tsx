@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Conections from "./pages/Conections";
 import Feed from "./pages/Feed";
@@ -24,7 +18,14 @@ function AppRoutes() {
     <>
       {shouldShowNavbar ? <Navbar /> : null}
       <Routes>
-        <Route path="/" element={<Navigate to="/feed" replace />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Feed />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
