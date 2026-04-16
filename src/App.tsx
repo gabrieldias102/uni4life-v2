@@ -24,7 +24,14 @@ function AppRoutes() {
     <>
       {shouldShowNavbar ? <Navbar /> : null}
       <Routes>
-        <Route path="/" element={<Navigate to="/feed" replace />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Feed />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
