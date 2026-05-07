@@ -13,7 +13,7 @@ export default function ProfilePostList({
 }: ProfilePostListProps) {
   if (loading) {
     return (
-      <div className="mx-auto mt-6 w-full max-w-3xl rounded-2xl bg-white p-8 text-center shadow-sm">
+      <div className="w-full mt-4 rounded-2xl bg-white p-5 text-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-black">Carregando posts...</p>
       </div>
     );
@@ -21,7 +21,7 @@ export default function ProfilePostList({
 
   if (error) {
     return (
-      <div className="mx-auto mt-6 w-full max-w-3xl rounded-2xl bg-white p-8 text-center shadow-sm">
+      <div className="w-full mt-4 rounded-2xl bg-white p- t5ext-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-red-500">{error}</p>
       </div>
     );
@@ -29,7 +29,7 @@ export default function ProfilePostList({
 
   if (posts.length === 0) {
     return (
-      <div className="mx-auto mt-6 w-full max-w-3xl rounded-2xl bg-white p-8 text-center shadow-sm">
+      <div className="w-full mt-4 rounded-2xl bg-white p-5 text-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-black">
           Nenhum post encontrado para esta visualizacao.
         </p>
@@ -38,11 +38,11 @@ export default function ProfilePostList({
   }
 
   return (
-    <div className="mx-auto mt-6 flex w-full max-w-3xl flex-col gap-4 pb-12">
+    <div className="w-full mt-4 flex flex-col gap-4 pb-12">
       {posts.map((post) => (
         <article
           key={post.id}
-          className="rounded-2xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+          className="rounded-2xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5"
         >
           <div className="mb-4 flex items-center gap-4">
             <img
@@ -51,7 +51,9 @@ export default function ProfilePostList({
               className="h-14 w-14 rounded-full object-cover"
             />
             <div className="flex-1">
-              <h2 className="text-lg font-bold text-black">{post.authorName}</h2>
+              <h2 className="text-lg font-bold text-black">
+                {post.authorName}
+              </h2>
               <p className="text-sm text-gray-600">{post.authorRole}</p>
             </div>
             <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-600">

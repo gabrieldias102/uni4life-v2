@@ -35,8 +35,8 @@ export default function ProfileCard() {
     : "Nao informado";
 
   return (
-    <div className="mx-auto mt-12 max-w-3xl rounded-2xl bg-white p-8 shadow-md">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <div className="w-full rounded-2xl bg-white p-4 shadow-md sm:p-8">
+      <div className="flex flex-col gap-4 sm:gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
           <img
             src={avatarUrl}

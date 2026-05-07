@@ -10,7 +10,7 @@ export default function ProfilePostSwitcher({
   onChange,
 }: ProfilePostSwitcherProps) {
   return (
-    <div className="mx-auto mt-8 w-full max-w-3xl rounded-2xl bg-white p-4">
+    <div className="w-full rounded-2xl bg-white p-3 shadow-sm sm:mt-8 sm:p-4">
       <div className="grid grid-cols-2 rounded-2xl bg-gray-100 p-1 shadow-sm">
         <button
           type="button"
