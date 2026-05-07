@@ -11,7 +11,7 @@ export default function NavbarItem({ text, children, to }: NavbarItemProps) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `mx-1 flex min-w-0 flex-row items-center gap-2 rounded-4xl p-3 hover:bg-soft hover:text-primary ${
+        `flex min-w-0 items-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium transition hover:bg-soft hover:text-primary lg:mx-1 lg:rounded-full ${
           isActive ? "text-primary bg-soft" : ""
         }`
       }

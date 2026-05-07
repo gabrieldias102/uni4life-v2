@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Conections from "./pages/Conections";
 import Feed from "./pages/Feed";
@@ -7,6 +8,7 @@ import Profile from "./pages/Profile";
 import Publish from "./pages/Publish";
 import Register from "./pages/Register";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import { getHealth } from "./services";
 
 function AppRoutes() {
   const location = useLocation();
@@ -16,7 +18,14 @@ function AppRoutes() {
     <>
       {shouldShowNavbar ? <Navbar /> : null}
       <Routes>
-        <Route path="/" element={<Navigate to="/feed" replace />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Feed />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
@@ -57,6 +66,16 @@ function AppRoutes() {
 }
 
 function App() {
+  useEffect(() => {
+    getHealth()
+      .then((response) => {
+        console.log("Acesso à API:", response.status);
+      })
+      .catch((error) => {
+        console.error("Erro ao consultar /health:", error);
+      });
+  }, []);
+
   return (
     <BrowserRouter>
       <AppRoutes />
