@@ -13,7 +13,7 @@ export default function Profile() {
   const { posts, loading, error } = useProfilePosts(user?.uid, activeView);
 
   return (
-    <main className="min-h-screen bg-neutral-100 px-3 pb-8 pt-4 sm:px-6">
+    <main className="min-h-screen px-3 pb-8 pt-4 sm:px-6">
       <div className="mx-auto w-full max-w-3xl">
         <header className="mb-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">
