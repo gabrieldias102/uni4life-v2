@@ -16,14 +16,14 @@ import { auth } from "../services/firebase";
 
 type AuthContextValue = {
   user: User | null;
-  profession: string | null;
+  course: string | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   register: (
     name: string,
     email: string,
     password: string,
-    profession: string,
+    course: string,
   ) => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -36,19 +36,19 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [profession, setProfession] = useState<string | null>(null);
+  const [course, setCourse] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser && typeof window !== "undefined") {
-        const storedProfession = localStorage.getItem(
-          `profession_${currentUser.uid}`,
-        );
-        setProfession(storedProfession || null);
+        const storedCourse =
+          localStorage.getItem(`course_${currentUser.uid}`) ||
+          localStorage.getItem(`profession_${currentUser.uid}`);
+        setCourse(storedCourse || null);
       } else {
-        setProfession(null);
+        setCourse(null);
       }
       setLoading(false);
     });
@@ -58,23 +58,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const value = {
     user,
-    profession,
+    course,
     loading,
     signIn: async (email: string, password: string) => {
       const credentials = await signInWithEmailAndPassword(auth, email, password);
 
       if (credentials.user && typeof window !== "undefined") {
-        const storedProfession = localStorage.getItem(
-          `profession_${credentials.user.uid}`,
-        );
-        setProfession(storedProfession || null);
+        const storedCourse =
+          localStorage.getItem(`course_${credentials.user.uid}`) ||
+          localStorage.getItem(`profession_${credentials.user.uid}`);
+        setCourse(storedCourse || null);
       }
     },
     register: async (
       name: string,
       email: string,
       password: string,
-      profession: string,
+      course: string,
     ) => {
       const credentials = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -85,11 +85,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       if (credentials.user && typeof window !== "undefined") {
-        localStorage.setItem(
-          `profession_${credentials.user.uid}`,
-          profession.trim(),
-        );
-        setProfession(profession.trim() || null);
+        localStorage.setItem(`course_${credentials.user.uid}`, course.trim());
+        localStorage.setItem(`profession_${credentials.user.uid}`, course.trim());
+        setCourse(course.trim() || null);
       }
     },
     logout: async () => {

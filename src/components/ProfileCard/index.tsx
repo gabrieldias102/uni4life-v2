@@ -11,10 +11,10 @@ export default function ProfileCard({
   showEmail = true,
   compact = false,
 }: ProfileCardProps) {
-  const { user, profession } = useAuth();
+  const { user, course } = useAuth();
 
   const displayName = user?.displayName?.trim() || "Usuário";
-  const professionLabel = profession || "Profissão não informada";
+  const courseLabel = course || "Curso não informado";
   const email = user?.email || "Email nao informado";
   const avatarSeed = encodeURIComponent(displayName || email);
   const avatarUrl =
@@ -37,7 +37,7 @@ export default function ProfileCard({
 
   if (compact) {
     return (
-      <div className="w-full max-w-xs rounded-2xl bg-white p-4 shadow-md">
+      <div className="w-full rounded-2xl bg-white p-4 shadow-md">
         <div className="flex items-center gap-4">
           <img
             src={avatarUrl}
@@ -49,7 +49,7 @@ export default function ProfileCard({
             <h1 className="truncate text-lg font-bold text-black">
               {displayName}
             </h1>
-            <p className="truncate text-sm text-gray-600">{professionLabel}</p>
+            <p className="truncate text-sm text-gray-600">{courseLabel}</p>
             {showEmail ? (
               <p className="truncate text-sm text-gray-600">{email}</p>
             ) : null}
@@ -82,7 +82,7 @@ export default function ProfileCard({
                 <p className="text-sm font-semibold text-black">
                   {connection.nome}
                 </p>
-                <p className="text-xs text-gray-500">{connection.profissao}</p>
+                <p className="text-xs text-gray-500">{connection.curso}</p>
               </div>
             </div>
           ))}
@@ -105,7 +105,7 @@ export default function ProfileCard({
             <h1 className="truncate text-2xl font-bold text-black">
               {displayName}
             </h1>
-            <p className="truncate text-sm text-gray-600">{professionLabel}</p>
+            <p className="truncate text-sm text-gray-600">{courseLabel}</p>
             {showEmail ? (
               <p className="truncate text-sm text-gray-600">{email}</p>
             ) : null}
@@ -145,7 +145,7 @@ export default function ProfileCard({
                   <p className="text-sm font-semibold text-black">
                     {connection.nome}
                   </p>
-                  <p className="text-xs text-gray-500">{connection.profissao}</p>
+                  <p className="text-xs text-gray-500">{connection.curso}</p>
                 </div>
               </div>
             ))}
