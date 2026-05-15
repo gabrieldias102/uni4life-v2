@@ -1,18 +1,13 @@
-import { useState } from "react";
 import { useAuth } from "../../contexts/useAuth";
 import ProfileCard from "../../components/ProfileCard";
 import FriendsCard from "../../components/FriendsCard";
 import ProfilePostList from "../../components/ProfilePostList";
-import ProfilePostSwitcher, {
-  type ProfilePostView,
-} from "../../components/ProfilePostSwitcher";
 import { useProfilePosts } from "../../hooks/useProfilePosts";
 import { getConnectionsByType } from "../../mocks/connections";
 
 export default function Feed() {
   const { user } = useAuth();
-  const [activeView, setActiveView] = useState<ProfilePostView>("published");
-  const { posts, loading, error } = useProfilePosts(user?.uid, activeView);
+  const { posts, loading, error } = useProfilePosts(user?.uid, "published");
 
   const suggestions = getConnectionsByType("conectar").slice(0, 4);
 
@@ -26,11 +21,10 @@ export default function Feed() {
         </aside>
 
         <section className="lg:col-span-2">
-          <ProfilePostSwitcher value={activeView} onChange={setActiveView} />
           <ProfilePostList posts={posts} loading={loading} error={error} />
         </section>
 
-        <aside className="lg:col-span-1">
+        <aside className="lg:w-96">
           <div className="sticky top-6 space-y-4">
             <div className="rounded-3xl bg-white p-5 shadow-md border border-gray-100">
               <h2 className="mb-2 text-lg font-bold text-black">
@@ -49,24 +43,24 @@ export default function Feed() {
             </div>
 
             <div className="rounded-3xl bg-white p-5 shadow-md border border-gray-100">
-  <div className="flex items-start gap-3">
-    <div className="mt-1 rounded-full bg-primary/10 p-3 text-primary">
-      🎓
-    </div>
-    <div className="min-w-0">
-      <h2 className="text-lg font-bold text-black">
-        Semana Acadêmica
-      </h2>
-      <p className="mt-2 text-sm text-gray-600">
-        De 17 a 21 de março — palestras, workshops e networking.
-        Inscreva-se agora!
-      </p>
-    </div>
-  </div>
-  <button className="mt-5 block w-fit rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90">
-    Saiba mais
-  </button>
-</div>
+              <div className="flex items-start gap-3">
+                <div className="mt-1 rounded-full bg-primary/10 p-3 text-primary">
+                  🎓
+                </div>
+                <div className="min-w-0">
+                  <h2 className="text-lg font-bold text-black">
+                    Semana Acadêmica
+                  </h2>
+                  <p className="mt-2 text-sm text-gray-600">
+                    De 17 a 21 de março — palestras, workshops e networking.
+                    Inscreva-se agora!
+                  </p>
+                </div>
+              </div>
+              <button className="mt-5 block w-fit rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90">
+                Saiba mais
+              </button>
+            </div>
           </div>
         </aside>
       </div>

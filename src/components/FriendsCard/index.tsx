@@ -22,7 +22,7 @@ export default function FriendsCard({
 }: FriendsCardProps) {
   const isConnected = tipo === "amigos";
   const containerClasses = compact
-    ? "flex min-w-full items-center justify-between gap-3 rounded-3xl bg-slate-50 p-3 shadow-sm border border-gray-100"
+    ? "flex min-w-full items-center justify-between gap-3 rounded-3xl bg-slate-50 p-1 shadow-sm border border-gray-100"
     : "flex min-w-full items-center gap-4 rounded-lg bg-white p-4 shadow";
   const avatarClasses = compact
     ? "h-12 w-12 rounded-full object-cover"
@@ -37,10 +37,22 @@ export default function FriendsCard({
           className={avatarClasses}
         />
         <div className="min-w-0">
-          <h1 className={compact ? "text-sm font-semibold text-black truncate" : "text-lg font-bold text-black"}>
+          <h1
+            className={
+              compact
+                ? "text-sm font-semibold text-black truncate"
+                : "text-lg font-bold text-black"
+            }
+          >
             {nome}
           </h1>
-          <p className={compact ? "text-xs font-medium text-gray-600 truncate" : "text-sm text-gray-600"}>
+          <p
+            className={
+              compact
+                ? "text-xs font-medium text-gray-600 truncate"
+                : "text-sm text-gray-600"
+            }
+          >
             {curso}
           </p>
         </div>
@@ -50,7 +62,7 @@ export default function FriendsCard({
           <p className="text-sm text-gray-600">{curiosidade}</p>
         </div>
       ) : null}
-      <div className={compact ? "flex-shrink-0" : "w-3/12"}>
+      <div className={compact ? "shrink-0" : "w-3/12"}>
         <ActionButton
           color={isConnected ? "white" : "primary"}
           icon={isConnected ? <IoCheckmark /> : <IoPersonAddOutline />}
