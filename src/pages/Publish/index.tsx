@@ -76,14 +76,6 @@ export default function Publish() {
             color="transparent"
             url="/feed"
           />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="flex items-center justify-center gap-2 rounded-2xl border border-primary bg-primary p-2 text-white disabled:cursor-not-allowed disabled:opacity-70"
-          >
-            <IoPaperPlaneOutline />
-            {isSubmitting ? "Publicando..." : "Publicar"}
-          </button>
         </div>
 
         <div className="rounded-2xl bg-white p-4 shadow-2xl">
@@ -107,6 +99,17 @@ export default function Publish() {
               placeholder="O que voce quer compartilhar com a comunidade?"
               disabled={isSubmitting}
             />
+
+            <div className="flex flex-row justify-end">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex items-center justify-center gap-2 rounded-2xl border border-primary bg-primary p-3 text-white disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                <IoPaperPlaneOutline />
+                {isSubmitting ? "Publicando..." : "Publicar"}
+              </button>
+            </div>
 
             {errorMessage ? (
               <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">

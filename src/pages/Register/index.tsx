@@ -14,6 +14,7 @@ const firebaseErrorMessages: Record<string, string> = {
 export default function Register() {
   const { register, user } = useAuth();
   const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,7 +37,7 @@ export default function Register() {
     setIsSubmitting(true);
 
     try {
-      await register(name, email, password);
+      await register(name, email, password, course);
     } catch (err) {
       if (err instanceof FirebaseError) {
         setError(
@@ -77,6 +78,20 @@ export default function Register() {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   placeholder="Seu nome"
+                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  required
+                />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                  Curso
+                </span>
+                <input
+                  type="text"
+                  value={course}
+                  onChange={(event) => setCourse(event.target.value)}
+                  placeholder="Seu curso"
                   className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />

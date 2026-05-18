@@ -38,7 +38,7 @@ export default function ProfilePostList({
   }
 
   return (
-    <div className="w-full mt-4 flex flex-col gap-4 pb-12">
+    <div className="w-full flex flex-col gap-4 pb-12">
       {posts.map((post) => (
         <article
           key={post.id}
