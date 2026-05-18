@@ -14,16 +14,7 @@ export default function Profile() {
 
   return (
     <main className="min-h-screen px-3 pb-8 pt-4 sm:px-6">
-      <div className="mx-auto w-full max-w-3xl">
-        <header className="mb-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">
-            Meu Perfil
-          </h1>
-          <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-            Mobile
-          </span>
-        </header>
-
+      <div className="flex flex-col mx-auto w-full max-w-3xl gap-3">
         <ProfileCard />
         <ProfilePostSwitcher value={activeView} onChange={setActiveView} />
         <ProfilePostList posts={posts} loading={loading} error={error} />

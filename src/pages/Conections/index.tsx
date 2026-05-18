@@ -15,7 +15,11 @@ export default function Conections() {
         <div>
           <div className="flex flex-col gap-4 pb-12">
             {conectarList.map((friend) => (
-              <FriendsCard key={`${friend.tipo}-${friend.nome}`} {...friend} />
+              <FriendsCard
+                key={`${friend.tipo}-${friend.nome}`}
+                showCuriosidade={false}
+                {...friend}
+              />
             ))}
           </div>
           <p className="text-gray-600 uppercase font-bold text-md pb-4">
@@ -23,7 +27,11 @@ export default function Conections() {
           </p>
           <div className="flex flex-col gap-4">
             {amigosList.map((friend) => (
-              <FriendsCard key={`${friend.tipo}-${friend.nome}`} {...friend} />
+              <FriendsCard
+                key={`${friend.tipo}-${friend.nome}`}
+                showCuriosidade={false}
+                {...friend}
+              />
             ))}
           </div>
         </div>
