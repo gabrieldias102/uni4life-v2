@@ -7,12 +7,13 @@ import {
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  signInWithEmailAndPassword, 
   signOut,
   type User,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { apiRequest } from "../services/api";
 
 type AuthContextValue = {
   user: User | null;
@@ -39,6 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [course, setCourse] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // vvvvvv LÓGICA DO useEffect RESTAURADA vvvvvv
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -50,16 +52,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       } else {
         setCourse(null);
       }
+      
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
+  
 
   const value = {
     user,
     course,
     loading,
+    
     signIn: async (email: string, password: string) => {
       const credentials = await signInWithEmailAndPassword(auth, email, password);
 
@@ -70,6 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setCourse(storedCourse || null);
       }
     },
+    
     register: async (
       name: string,
       email: string,
@@ -77,16 +83,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
       course: string,
     ) => {
       const credentials = await createUserWithEmailAndPassword(auth, email, password);
+      const user = credentials.user;
 
       if (name.trim()) {
-        await updateProfile(credentials.user, {
+        await updateProfile(user, {
           displayName: name.trim(),
         });
       }
 
-      if (credentials.user && typeof window !== "undefined") {
-        localStorage.setItem(`course_${credentials.user.uid}`, course.trim());
-        localStorage.setItem(`profession_${credentials.user.uid}`, course.trim());
+      
+      try {
+        await apiRequest('/users', {
+          method: 'POST',
+          body: {
+            user_uid: user.uid,
+            full_name: name.trim(),
+            username: name.trim(),
+          }
+        });
+      } catch (backendError) {
+        console.error("Falha ao sincronizar o usuário com o back-end:", backendError);
+        throw backendError;
+      }
+
+      if (user && typeof window !== "undefined") {
+        localStorage.setItem(`course_${user.uid}`, course.trim());
+        localStorage.setItem(`profession_${user.uid}`, course.trim());
         setCourse(course.trim() || null);
       }
     },
