@@ -48,6 +48,7 @@ async function parseResponse<T>(response: Response): Promise<T> {
   return responseBody as T;
 }
 
+
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { body, headers, ...requestInit } = options;
   const shouldSendJsonBody = body !== undefined;
@@ -63,6 +64,27 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
 
   return parseResponse<T>(response);
 }
+
+
+export async function authenticatedApiRequest<T>(
+  path: string,
+  token: string,
+  options: RequestOptions = {}
+): Promise<T> {
+  const authHeaders = {
+    Authorization: `Bearer ${token}`,
+  };
+
+
+  return apiRequest(path, {
+    ...options,
+    headers: {
+      ...options.headers,
+      ...authHeaders,
+    },
+  });
+}
+
 
 export function getHealth() {
   return apiRequest<{ status: string }>("/health");

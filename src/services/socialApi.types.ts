@@ -1,83 +1,64 @@
 export type UserRead = {
-  id: number;
-  name: string;
-  profession: string;
+  user_uid: string;
+  full_name: string; 
+  username: string;  
   bio?: string | null;
-  email?: string | null;
-  avatar_url?: string | null;
-  created_at?: string;
-  updated_at?: string;
+  joined_at: string;
+  updated_at: string;
 };
+
 
 export type UserCreate = {
-  name: string;
-  profession: string;
-  bio?: string;
-  email?: string;
-  avatar_url?: string;
+  user_uid: string;
+  full_name: string;
+  username: string;
 };
 
-export type UserUpdate = Partial<UserCreate>;
+export type UserUpdate = Partial<Omit<UserCreate, "user_uid">>;
 
-export type ConnectionRead = {
-  id?: number;
-  user_id: string;
-  target_id: number;
-  created_at?: string;
-  user?: UserRead;
-  target?: UserRead;
-};
 
 export type PostRead = {
   id: number;
-  user_id: string;
   content: string;
-  image_url?: string | null;
-  attachment_url?: string | null;
-  created_at?: string;
-  updated_at?: string;
-  user?: UserRead;
-  comments?: CommentRead[];
-  reposts?: RepostRead[];
+  author: UserRead; // 
+  created_at: string;
+  updated_at: string;
+  repost_of: number | null; 
 };
+
 
 export type PostCreate = {
-  user_id: string;
+  author_uid: string;
   content: string;
-  image_url?: string;
-  attachment_url?: string;
 };
 
-export type PostUpdate = Partial<Omit<PostCreate, "user_id">>;
+export type PostUpdate = Partial<Omit<PostCreate, "author_uid">>;
+
 
 export type CommentRead = {
   id: number;
   post_id: number;
-  user_id: string;
+  author: UserRead;
   content: string;
-  created_at?: string;
-  updated_at?: string;
-  user?: UserRead;
+  created_at: string;
 };
 
 export type CommentCreate = {
-  user_id: string;
+  author_uid: string;
   content: string;
 };
 
 export type RepostRead = {
   id: number;
   post_id: number;
-  user_id: string;
-  content?: string | null;
-  created_at?: string;
-  user?: UserRead;
+  user: UserRead; 
+  created_at: string;
 };
 
 export type RepostCreate = {
-  user_id: string;
-  content?: string;
+  user_uid: string;
 };
+
 
 export type HealthRead = {
   status: string;

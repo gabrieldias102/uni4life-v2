@@ -7,7 +7,7 @@ import type {
   PostUpdate,
   RepostCreate,
   RepostRead,
-} from "./socialApi.types";
+} from "./socialApi.types"; 
 
 export function listPosts() {
   return apiRequest<PostRead[]>("/posts");
@@ -37,9 +37,11 @@ export function deletePost(postId: number) {
   });
 }
 
-export function listUserPosts(userId: number) {
-  return apiRequest<PostRead[]>(`/users/${userId}/posts`);
+
+export function listUserPosts(userUid: string) {
+  return apiRequest<PostRead[]>(`/users/${userUid}/posts`);
 }
+
 
 export function listPostComments(postId: number) {
   return apiRequest<CommentRead[]>(`/posts/${postId}/comments`);
