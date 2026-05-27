@@ -1,7 +1,15 @@
-import type { MockProfilePost } from "../../mocks/profilePosts";
+type PostRead = {
+  id: string;
+  author: {
+    username: string;
+    full_name: string;
+  };
+  created_at: string;
+  content: string;
+};
 
 type ProfilePostListProps = {
-  posts: MockProfilePost[];
+  posts: PostRead[];
   loading?: boolean;
   error?: string | null;
 };
@@ -21,17 +29,18 @@ export default function ProfilePostList({
 
   if (error) {
     return (
-      <div className="w-full mt-4 rounded-2xl bg-white p- t5ext-center shadow-sm sm:p-8">
+      <div className="w-full mt-4 rounded-2xl bg-white p-5 text-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-red-500">{error}</p>
       </div>
     );
   }
 
-  if (posts.length === 0) {
+  // A verificação de posts indefinidos ou não-array é uma boa prática de defesa
+  if (!posts || posts.length === 0) {
     return (
       <div className="w-full mt-4 rounded-2xl bg-white p-5 text-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-black">
-          Nenhum post encontrado para esta visualizacao.
+          Nenhum post encontrado. Seja o primeiro a publicar!
         </p>
       </div>
     );
@@ -39,6 +48,7 @@ export default function ProfilePostList({
 
   return (
     <div className="w-full flex flex-col gap-4 pb-12">
+      {/* vvvvvv AQUI ESTÁ A MUDANÇA PRINCIPAL vvvvvv */}
       {posts.map((post) => (
         <article
           key={post.id}
@@ -46,41 +56,33 @@ export default function ProfilePostList({
         >
           <div className="mb-4 flex items-center gap-4">
             <img
-              src={post.authorAvatar}
-              alt={`Foto de perfil de ${post.authorName}`}
+              // Usando um avatar genérico, pois a API não envia a URL da imagem ainda
+              src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${post.author.username}`}
+              alt={`Foto de perfil de ${post.author.full_name}`}
               className="h-14 w-14 rounded-full object-cover"
             />
             <div className="flex-1">
               <h2 className="text-lg font-bold text-black">
-                {post.authorName}
+                {post.author.full_name}
               </h2>
-              <p className="text-sm text-gray-600">{post.authorRole}</p>
+              <p className="text-sm text-gray-600">@{post.author.username}</p>
             </div>
             <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-600">
-              {post.publishedAt}
+              {/* Formatando a data que vem da API */}
+              {new Date(post.created_at).toLocaleDateString()}
             </span>
           </div>
 
-          {post.republishedFrom ? (
-            <p className="mb-3 text-sm font-medium text-primary">
-              Republicado de {post.republishedFrom}
-            </p>
-          ) : null}
-
           <p className="mb-4 text-sm leading-6 text-gray-700">{post.content}</p>
 
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={`${post.id}-${tag}`}
-                className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
+          {/* 
+            A seção de tags foi removida, pois os dados da API ainda não incluem tags.
+            Isso evita o erro .map() de undefined.
+            Poderemos adicionar de volta quando a funcionalidade de tags for implementada.
+          */}
         </article>
       ))}
+      {/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */}
     </div>
   );
 }
