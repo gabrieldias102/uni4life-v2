@@ -1,12 +1,4 @@
-type PostRead = {
-  id: string;
-  author: {
-    username: string;
-    full_name: string;
-  };
-  created_at: string;
-  content: string;
-};
+import type { PostRead } from "../../services/socialApi.types";
 
 type ProfilePostListProps = {
   posts: PostRead[];
@@ -35,7 +27,6 @@ export default function ProfilePostList({
     );
   }
 
-  // A verificação de posts indefinidos ou não-array é uma boa prática de defesa
   if (!posts || posts.length === 0) {
     return (
       <div className="w-full mt-4 rounded-2xl bg-white p-5 text-center shadow-sm sm:p-8">
@@ -48,7 +39,6 @@ export default function ProfilePostList({
 
   return (
     <div className="w-full flex flex-col gap-4 pb-12">
-      {/* vvvvvv AQUI ESTÁ A MUDANÇA PRINCIPAL vvvvvv */}
       {posts.map((post) => (
         <article
           key={post.id}
@@ -56,7 +46,7 @@ export default function ProfilePostList({
         >
           <div className="mb-4 flex items-center gap-4">
             <img
-              // Usando um avatar genérico, pois a API não envia a URL da imagem ainda
+  
               src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${post.author.username}`}
               alt={`Foto de perfil de ${post.author.full_name}`}
               className="h-14 w-14 rounded-full object-cover"
@@ -68,7 +58,7 @@ export default function ProfilePostList({
               <p className="text-sm text-gray-600">@{post.author.username}</p>
             </div>
             <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-600">
-              {/* Formatando a data que vem da API */}
+
               {new Date(post.created_at).toLocaleDateString()}
             </span>
           </div>
@@ -82,7 +72,7 @@ export default function ProfilePostList({
           */}
         </article>
       ))}
-      {/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */}
+
     </div>
   );
 }

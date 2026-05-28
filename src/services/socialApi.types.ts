@@ -63,3 +63,10 @@ export type RepostCreate = {
 export type HealthRead = {
   status: string;
 };
+
+export type ConnectionRead = {
+  id: number;
+  user: UserRead;
+  connected_user: UserRead;
+  created_at: string;
+};

@@ -43,7 +43,7 @@ export default function Publish() {
       setErrorMessage(null);
 
       await createPost({
-        user_id: user?.uid,
+        author_uid: user.uid,
         content: trimmedContent,
       });
 

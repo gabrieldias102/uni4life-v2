@@ -1,5 +1,3 @@
-// C:\...\uni4life-v2\src\hooks\useProfilePosts.ts (VERSÃO FINAL E CORRETA)
-
 import { useEffect, useState, useMemo } from "react";
 import type { ProfilePostView } from "../components/ProfilePostSwitcher";
 import { listUserPosts } from "../services/posts";
