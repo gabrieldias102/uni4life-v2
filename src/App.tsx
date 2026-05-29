@@ -56,7 +56,7 @@ function AppRoutes() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile />
+              <Profile posts={[]} />
             </ProtectedRoute>
           }
         />
