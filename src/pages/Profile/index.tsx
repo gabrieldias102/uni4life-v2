@@ -13,7 +13,7 @@ export default function Profile() {
   const { posts, loading, error } = useProfilePosts(user?.uid, activeView);
 
   return (
-    <main className="min-h-screen px-3 pb-8 pt-4 sm:px-6">
+    <main className="min-h-screen px-4 pb-8 pt-4 sm:px-6">
       <div className="flex flex-col mx-auto w-full max-w-3xl gap-3">
         <ProfileCard />
         <ProfilePostSwitcher value={activeView} onChange={setActiveView} />

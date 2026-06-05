@@ -64,10 +64,10 @@ export default function Publish() {
   }
 
   return (
-    <div>
+    <main className="min-h-screen px-4 pb-6 pt-12 sm:px-6">
       <form
         onSubmit={handleSubmit}
-        className="mx-auto flex max-w-xl flex-col justify-center gap-6 pt-12"
+        className="mx-auto flex max-w-xl flex-col justify-center gap-6"
       >
         <div className="flex flex-row justify-between">
           <ActionButton
@@ -119,6 +119,6 @@ export default function Publish() {
           </div>
         </div>
       </form>
-    </div>
+    </main>
   );
 }
