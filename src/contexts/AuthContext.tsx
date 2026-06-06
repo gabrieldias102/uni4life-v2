@@ -5,15 +5,15 @@ import {
   useState,
 } from "react";
 import {
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, 
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
   type User,
   updateProfile,
 } from "firebase/auth";
+import { createUser } from "../services/users";
 import { auth } from "../services/firebase";
-import { apiRequest } from "../services/api";
 
 type AuthContextValue = {
   user: User | null;
@@ -24,7 +24,7 @@ type AuthContextValue = {
     name: string,
     email: string,
     password: string,
-    course: string,
+    course: string
   ) => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -35,83 +35,86 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
+function getStoredCourse(userUid: string) {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return (
+    localStorage.getItem(`course_${userUid}`) ||
+    localStorage.getItem(`profession_${userUid}`)
+  );
+}
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [course, setCourse] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // vvvvvv LÓGICA DO useEffect RESTAURADA vvvvvv
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if (currentUser && typeof window !== "undefined") {
-        const storedCourse =
-          localStorage.getItem(`course_${currentUser.uid}`) ||
-          localStorage.getItem(`profession_${currentUser.uid}`);
-        setCourse(storedCourse || null);
-      } else {
-        setCourse(null);
-      }
-      
+      setCourse(currentUser ? getStoredCourse(currentUser.uid) : null);
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
-  
 
   const value = {
     user,
     course,
     loading,
-    
+
     signIn: async (email: string, password: string) => {
       const credentials = await signInWithEmailAndPassword(auth, email, password);
 
-      if (credentials.user && typeof window !== "undefined") {
-        const storedCourse =
-          localStorage.getItem(`course_${credentials.user.uid}`) ||
-          localStorage.getItem(`profession_${credentials.user.uid}`);
-        setCourse(storedCourse || null);
+      if (credentials.user) {
+        setCourse(getStoredCourse(credentials.user.uid));
       }
     },
-    
+
     register: async (
       name: string,
       email: string,
       password: string,
-      course: string,
+      course: string
     ) => {
-      const credentials = await createUserWithEmailAndPassword(auth, email, password);
-      const user = credentials.user;
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const createdUser = credentials.user;
+      const trimmedName = name.trim();
+      const trimmedCourse = course.trim();
 
-      if (name.trim()) {
-        await updateProfile(user, {
-          displayName: name.trim(),
+      if (trimmedName) {
+        await updateProfile(createdUser, {
+          displayName: trimmedName,
         });
       }
 
-      
       try {
-        await apiRequest('/users', {
-          method: 'POST',
-          body: {
-            user_uid: user.uid,
-            full_name: name.trim(),
-            username: name.trim(),
-          }
+        await createUser({
+          user_uid: createdUser.uid,
+          full_name: trimmedName,
+          username: trimmedName,
+          course: trimmedCourse,
         });
       } catch (backendError) {
-        console.error("Falha ao sincronizar o usuário com o back-end:", backendError);
+        console.error("Falha ao sincronizar o usuario com o back-end:", backendError);
         throw backendError;
       }
 
-      if (user && typeof window !== "undefined") {
-        localStorage.setItem(`course_${user.uid}`, course.trim());
-        localStorage.setItem(`profession_${user.uid}`, course.trim());
-        setCourse(course.trim() || null);
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`course_${createdUser.uid}`, trimmedCourse);
+        localStorage.setItem(`profession_${createdUser.uid}`, trimmedCourse);
       }
+
+      setCourse(trimmedCourse || null);
     },
+
     logout: async () => {
       await signOut(auth);
     },

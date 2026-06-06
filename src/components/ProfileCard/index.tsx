@@ -1,6 +1,6 @@
 import { useAuth } from "../../contexts/useAuth";
+import { useUserProfile } from "../../hooks/useUserProfile";
 import { getConnectionsByType } from "../../mocks/connections";
-import { mockProfilePosts } from "../../mocks/profilePosts";
 
 type ProfileCardProps = {
   showEmail?: boolean;
@@ -11,10 +11,12 @@ export default function ProfileCard({
   showEmail = true,
   compact = false,
 }: ProfileCardProps) {
-  const { user, course } = useAuth();
+  const { user } = useAuth();
+  const { profile, loading, error } = useUserProfile(user?.uid);
 
-  const displayName = user?.displayName?.trim() || "Usuário";
-  const courseLabel = course || "Curso não informado";
+  const displayName =
+    profile?.full_name?.trim() || user?.displayName?.trim() || "Usuario";
+  const courseLabel = profile?.course || "Curso nao informado";
   const email = user?.email || "Email nao informado";
   const avatarSeed = encodeURIComponent(displayName || email);
   const avatarUrl =
@@ -26,14 +28,30 @@ export default function ProfileCard({
         month: "long",
         year: "numeric",
       }).format(new Date(user.metadata.creationTime))
-    : "Não informado";
+    : "Nao informado";
 
-  const totalPosts = mockProfilePosts.length;
+  const totalPosts = profile?.post_count ?? 0;
+  const totalConnections = profile?.connection_count ?? 0;
   const connections = getConnectionsByType("amigos").concat(
     getConnectionsByType("conectar")
   );
-  const totalConnections = connections.length;
   const recentConnections = connections.slice(0, 3);
+
+  if (loading) {
+    return (
+      <div className="w-full rounded-2xl bg-white p-4 shadow-md">
+        Carregando perfil...
+      </div>
+    );
+  }
+
+  if (error || !profile) {
+    return (
+      <div className="w-full rounded-2xl bg-white p-4 shadow-md">
+        {error || "Erro ao carregar perfil."}
+      </div>
+    );
+  }
 
   if (compact) {
     return (
@@ -63,13 +81,13 @@ export default function ProfileCard({
           </div>
           <div>
             <p className="text-xl font-bold text-black">{totalConnections}</p>
-            <p>Conexões</p>
+            <p>Conexoes</p>
           </div>
         </div>
 
         <div className="mt-4 space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-            Conexões recentes
+            Conexoes recentes
           </p>
           {recentConnections.map((connection) => (
             <div key={connection.nome} className="flex items-center gap-3">
@@ -93,7 +111,7 @@ export default function ProfileCard({
 
   return (
     <div className="w-full rounded-2xl bg-white p-4 shadow-md sm:p-8">
-      <div className="flex flex-col gap-4 sm:gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
         <div className="flex items-center gap-4">
           <img
             src={avatarUrl}
@@ -125,13 +143,13 @@ export default function ProfileCard({
           </div>
           <div>
             <p className="text-2xl font-bold text-black">{totalConnections}</p>
-            <p className="text-sm text-gray-500">Conexões</p>
+            <p className="text-sm text-gray-500">Conexoes</p>
           </div>
         </div>
 
         <div className="rounded-2xl bg-gray-50 p-4">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">
-            Conexões recentes
+            Conexoes recentes
           </p>
           <div className="space-y-3">
             {recentConnections.map((connection) => (

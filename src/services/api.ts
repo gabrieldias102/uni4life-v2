@@ -10,10 +10,24 @@ export class ApiError extends Error {
   }
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL =
+  typeof rawApiBaseUrl === "string" ? rawApiBaseUrl.trim() : "";
 
 if (!API_BASE_URL) {
-  throw new Error("A variavel VITE_API_BASE_URL nao foi configurada no arquivo .env.");
+  throw new Error(
+    "A variavel VITE_API_BASE_URL nao foi configurada no arquivo .env do front-end."
+  );
+}
+
+let validatedApiBaseUrl: string;
+
+try {
+  validatedApiBaseUrl = new URL(API_BASE_URL).toString();
+} catch {
+  throw new Error(
+    `VITE_API_BASE_URL invalida: "${API_BASE_URL}". Use algo como http://localhost:8000 e reinicie o front-end.`
+  );
 }
 
 type RequestOptions = Omit<RequestInit, "body"> & {
@@ -21,7 +35,12 @@ type RequestOptions = Omit<RequestInit, "body"> & {
 };
 
 function buildUrl(path: string) {
-  return new URL(path, API_BASE_URL.endsWith("/") ? API_BASE_URL : `${API_BASE_URL}/`).toString();
+  return new URL(
+    path,
+    validatedApiBaseUrl.endsWith("/")
+      ? validatedApiBaseUrl
+      : `${validatedApiBaseUrl}/`
+  ).toString();
 }
 
 async function parseResponse<T>(response: Response): Promise<T> {
@@ -48,8 +67,10 @@ async function parseResponse<T>(response: Response): Promise<T> {
   return responseBody as T;
 }
 
-
-export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
+export async function apiRequest<T>(
+  path: string,
+  options: RequestOptions = {}
+): Promise<T> {
   const { body, headers, ...requestInit } = options;
   const shouldSendJsonBody = body !== undefined;
 
@@ -65,7 +86,6 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   return parseResponse<T>(response);
 }
 
-
 export async function authenticatedApiRequest<T>(
   path: string,
   token: string,
@@ -75,7 +95,6 @@ export async function authenticatedApiRequest<T>(
     Authorization: `Bearer ${token}`,
   };
 
-
   return apiRequest(path, {
     ...options,
     headers: {
@@ -84,7 +103,6 @@ export async function authenticatedApiRequest<T>(
     },
   });
 }
-
 
 export function getHealth() {
   return apiRequest<{ status: string }>("/health");
