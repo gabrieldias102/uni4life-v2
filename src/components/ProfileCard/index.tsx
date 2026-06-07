@@ -1,6 +1,7 @@
 import { useAuth } from "../../contexts/useAuth";
+import { useConnections } from "../../hooks/useConnections";
 import { useUserProfile } from "../../hooks/useUserProfile";
-import { getConnectionsByType } from "../../mocks/connections";
+import { mapConnectionToFriendCard } from "../../utils/friendsCardMappers";
 
 type ProfileCardProps = {
   showEmail?: boolean;
@@ -13,6 +14,11 @@ export default function ProfileCard({
 }: ProfileCardProps) {
   const { user } = useAuth();
   const { profile, loading, error } = useUserProfile(user?.uid);
+  const {
+    connections,
+    loading: connectionsLoading,
+    error: connectionsError,
+  } = useConnections(user?.uid);
 
   const displayName =
     profile?.full_name?.trim() || user?.displayName?.trim() || "Usuario";
@@ -32,10 +38,9 @@ export default function ProfileCard({
 
   const totalPosts = profile?.post_count ?? 0;
   const totalConnections = profile?.connection_count ?? 0;
-  const connections = getConnectionsByType("amigos").concat(
-    getConnectionsByType("conectar")
-  );
-  const recentConnections = connections.slice(0, 3);
+  const recentConnections = connections
+    .slice(0, 3)
+    .map((connection) => mapConnectionToFriendCard(connection, user?.uid));
 
   if (loading) {
     return (
@@ -89,6 +94,14 @@ export default function ProfileCard({
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
             Conexoes recentes
           </p>
+          {connectionsLoading ? (
+            <p className="text-sm text-gray-500">Carregando conexoes...</p>
+          ) : null}
+          {!connectionsLoading && !recentConnections.length ? (
+            <p className="text-sm text-gray-500">
+              Voce ainda nao possui conexoes recentes.
+            </p>
+          ) : null}
           {recentConnections.map((connection) => (
             <div key={connection.nome} className="flex items-center gap-3">
               <img
@@ -104,6 +117,9 @@ export default function ProfileCard({
               </div>
             </div>
           ))}
+          {connectionsError ? (
+            <p className="text-sm text-red-600">{connectionsError}</p>
+          ) : null}
         </div>
       </div>
     );
@@ -152,6 +168,14 @@ export default function ProfileCard({
             Conexoes recentes
           </p>
           <div className="space-y-3">
+            {connectionsLoading ? (
+              <p className="text-sm text-gray-500">Carregando conexoes...</p>
+            ) : null}
+            {!connectionsLoading && !recentConnections.length ? (
+              <p className="text-sm text-gray-500">
+                Voce ainda nao possui conexoes recentes.
+              </p>
+            ) : null}
             {recentConnections.map((connection) => (
               <div key={connection.nome} className="flex items-center gap-3">
                 <img
@@ -167,6 +191,9 @@ export default function ProfileCard({
                 </div>
               </div>
             ))}
+            {connectionsError ? (
+              <p className="text-sm text-red-600">{connectionsError}</p>
+            ) : null}
           </div>
         </div>
       </div>

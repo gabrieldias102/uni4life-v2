@@ -17,7 +17,9 @@ export default function Conections() {
     connectingUserUids,
   } = useConnections(user?.uid);
   const conectarList = suggestions.map(mapSuggestionToFriendCard);
-  const amigosList = connections.map(mapConnectionToFriendCard);
+  const amigosList = connections.map((connection) =>
+    mapConnectionToFriendCard(connection, user?.uid)
+  );
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col justify-center gap-6 px-4 pb-6 pt-12 sm:px-6">

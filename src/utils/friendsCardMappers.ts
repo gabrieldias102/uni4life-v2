@@ -20,21 +20,25 @@ export function mapSuggestionToFriendCard(user: UserRead): FriendsCardProps {
 }
 
 export function mapConnectionToFriendCard(
-  connection: ConnectionRead
+  connection: ConnectionRead,
+  currentUserUid?: string
 ): FriendsCardProps {
-  const connectedUser = connection.connected_user;
+  const relatedUser =
+    currentUserUid && connection.connected_user.user_uid === currentUserUid
+      ? connection.user
+      : connection.connected_user;
   const displayName =
-    connectedUser.full_name?.trim() ||
-    connectedUser.username?.trim() ||
+    relatedUser.full_name?.trim() ||
+    relatedUser.username?.trim() ||
     "Usuario";
 
   return {
     nome: displayName,
-    curso: connectedUser.course?.trim() || "Curso nao informado",
+    curso: relatedUser.course?.trim() || "Curso nao informado",
     curiosidade:
-      connectedUser.bio?.trim() || "Voces ja fazem parte da mesma rede.",
+      relatedUser.bio?.trim() || "Voces ja fazem parte da mesma rede.",
     avatar: getAvatarUrl(displayName),
     tipo: "amigos",
-    targetUid: connectedUser.user_uid,
+    targetUid: relatedUser.user_uid,
   };
 }

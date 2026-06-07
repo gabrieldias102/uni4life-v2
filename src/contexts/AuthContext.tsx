@@ -19,6 +19,7 @@ type AuthContextValue = {
   user: User | null;
   course: string | null;
   loading: boolean;
+  isRegistering: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   register: (
     name: string,
@@ -50,6 +51,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [course, setCourse] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -65,6 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     user,
     course,
     loading,
+    isRegistering,
 
     signIn: async (email: string, password: string) => {
       const credentials = await signInWithEmailAndPassword(auth, email, password);
@@ -80,39 +83,49 @@ export function AuthProvider({ children }: AuthProviderProps) {
       password: string,
       course: string
     ) => {
-      const credentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const createdUser = credentials.user;
-      const trimmedName = name.trim();
-      const trimmedCourse = course.trim();
-
-      if (trimmedName) {
-        await updateProfile(createdUser, {
-          displayName: trimmedName,
-        });
-      }
-
       try {
+        setIsRegistering(true);
+
+        const credentials = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const createdUser = credentials.user;
+        const trimmedName = name.trim();
+        const trimmedCourse = course.trim();
+
+        if (trimmedName) {
+          await updateProfile(createdUser, {
+            displayName: trimmedName,
+          });
+        }
+
         await createUser({
           user_uid: createdUser.uid,
           full_name: trimmedName,
           username: trimmedName,
           course: trimmedCourse,
         });
-      } catch (backendError) {
-        console.error("Falha ao sincronizar o usuario com o back-end:", backendError);
-        throw backendError;
-      }
 
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`course_${createdUser.uid}`, trimmedCourse);
-        localStorage.setItem(`profession_${createdUser.uid}`, trimmedCourse);
-      }
+        if (typeof window !== "undefined") {
+          localStorage.setItem(`course_${createdUser.uid}`, trimmedCourse);
+          localStorage.setItem(`profession_${createdUser.uid}`, trimmedCourse);
+        }
 
-      setCourse(trimmedCourse || null);
+        setCourse(trimmedCourse || null);
+      } catch (registrationError) {
+        console.error(
+          "Falha ao sincronizar o usuario com o back-end:",
+          registrationError
+        );
+        await signOut(auth);
+        setUser(null);
+        setCourse(null);
+        throw registrationError;
+      } finally {
+        setIsRegistering(false);
+      }
     },
 
     logout: async () => {
