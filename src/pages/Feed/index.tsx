@@ -3,12 +3,12 @@ import ProfileCard from "../../components/ProfileCard";
 import ProfilePostList from "../../components/ProfilePostList";
 import { useAuth } from "../../contexts/useAuth";
 import { useConnections } from "../../hooks/useConnections";
-import { useProfilePosts } from "../../hooks/useProfilePosts";
+import { useFeed } from "../../hooks/useFeed";
 import { mapSuggestionToFriendCard } from "../../utils/friendsCardMappers";
 
 export default function Feed() {
   const { user } = useAuth();
-  const { posts, loading, error } = useProfilePosts(user?.uid, "published");
+  const { posts, loading, error } = useFeed(user?.uid);
   const {
     suggestions,
     loading: connectionsLoading,

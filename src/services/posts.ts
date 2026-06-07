@@ -42,6 +42,10 @@ export function listUserPosts(userUid: string) {
   return apiRequest<PostRead[]>(`/users/${userUid}/posts`);
 }
 
+export function getMainFeed(userUid: string) {
+  return apiRequest<PostRead[]>(`/users/${userUid}/feed`);
+}
+
 
 export function listPostComments(postId: number) {
   return apiRequest<CommentRead[]>(`/posts/${postId}/comments`);
