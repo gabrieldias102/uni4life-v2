@@ -9,8 +9,12 @@ export type FriendsCardProps = {
   curiosidade: string;
   avatar: string;
   tipo: FriendsCardType;
+  targetUid?: string;
   compact?: boolean;
   showCuriosidade?: boolean;
+  onConnect?: (targetUid: string) => void | Promise<void>;
+  isSubmitting?: boolean;
+  disabled?: boolean;
 };
 
 export default function FriendsCard({
@@ -19,10 +23,16 @@ export default function FriendsCard({
   curiosidade,
   avatar,
   tipo,
+  targetUid,
   compact = false,
   showCuriosidade = true,
+  onConnect,
+  isSubmitting = false,
+  disabled = false,
 }: FriendsCardProps) {
   const isConnected = tipo === "amigos";
+  const isActionDisabled =
+    isConnected || disabled || isSubmitting || !onConnect || !targetUid;
   const shouldShowCuriosidade = !compact && showCuriosidade;
   const containerClasses = compact
     ? "flex min-w-full items-center justify-between gap-3 rounded-3xl bg-slate-50 p-1 shadow-sm border border-gray-100"
@@ -81,7 +91,13 @@ export default function FriendsCard({
         <ActionButton
           color={isConnected ? "white" : "primary"}
           icon={isConnected ? <IoCheckmark /> : <IoPersonAddOutline />}
-          text={isConnected ? "Conectado" : "Conectar"}
+          text={
+            isConnected ? "Conectado" : isSubmitting ? "Conectando..." : "Conectar"
+          }
+          onClick={
+            targetUid && onConnect ? () => onConnect(targetUid) : undefined
+          }
+          disabled={isActionDisabled}
         />
       </div>
     </div>

@@ -16,19 +16,21 @@ export function useUserProfile(userUid: string | undefined) {
       return;
     }
 
+    const currentUserUid = userUid;
+
     async function fetchProfile() {
       try {
         setLoading(true);
         setError(null);
 
-        const data = await getUser(userUid);
+        const data = await getUser(currentUserUid);
         setProfile(data);
       } catch (err) {
         setProfile(null);
 
         if (err instanceof ApiError) {
           console.error("Erro ao buscar perfil na API:", {
-            userUid,
+            userUid: currentUserUid,
             status: err.status,
             message: err.message,
             details: err.details,
@@ -40,7 +42,7 @@ export function useUserProfile(userUid: string | undefined) {
         }
 
         console.error("Erro inesperado ao buscar perfil:", {
-          userUid,
+          userUid: currentUserUid,
           error: err,
         });
         setError("Nao foi possivel carregar o perfil.");
