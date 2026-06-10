@@ -12,7 +12,7 @@ const firebaseErrorMessages: Record<string, string> = {
 };
 
 export default function Register() {
-  const { register, user } = useAuth();
+  const { register, user, isRegistering } = useAuth();
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ export default function Register() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  if (user) {
+  if (user && !isRegistering) {
     return <Navigate to="/feed" replace />;
   }
 

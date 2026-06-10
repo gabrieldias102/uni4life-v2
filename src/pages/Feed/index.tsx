@@ -1,19 +1,26 @@
-import { useAuth } from "../../contexts/useAuth";
-import ProfileCard from "../../components/ProfileCard";
 import FriendsCard from "../../components/FriendsCard";
+import ProfileCard from "../../components/ProfileCard";
 import ProfilePostList from "../../components/ProfilePostList";
-import { useProfilePosts } from "../../hooks/useProfilePosts";
-import { getConnectionsByType } from "../../mocks/connections";
+import { useAuth } from "../../contexts/useAuth";
+import { useConnections } from "../../hooks/useConnections";
+import { useFeed } from "../../hooks/useFeed";
+import { mapSuggestionToFriendCard } from "../../utils/friendsCardMappers";
 
 export default function Feed() {
   const { user } = useAuth();
-  const { posts, loading, error } = useProfilePosts(user?.uid, "published");
-
-  const suggestions = getConnectionsByType("conectar").slice(0, 4);
+  const { posts, loading, error } = useFeed(user?.uid);
+  const {
+    suggestions,
+    loading: connectionsLoading,
+    error: connectionsError,
+    connect,
+    connectingUserUids,
+  } = useConnections(user?.uid);
+  const suggestionCards = suggestions.slice(0, 4).map(mapSuggestionToFriendCard);
 
   return (
     <main className="min-h-screen bg-background px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-7xl grid gap-6 lg:grid-cols-4 lg:gap-8">
+      <div className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-4 lg:gap-8">
         <aside className="lg:col-span-1">
           <div className="sticky top-6">
             <ProfileCard compact showEmail={false} />
@@ -26,33 +33,46 @@ export default function Feed() {
 
         <aside className="lg:w-96">
           <div className="sticky top-6 space-y-4">
-            <div className="rounded-3xl bg-white p-5 shadow-md border border-gray-100">
+            <div className="rounded-3xl border border-gray-100 bg-white p-5 shadow-md">
               <h2 className="mb-2 text-lg font-bold text-black">
                 Pessoas para conhecer
               </h2>
 
               <div className="mt-5 space-y-3">
-                {suggestions.map((person) => (
+                {connectionsLoading ? (
+                  <p className="text-sm text-gray-500">Carregando sugestoes...</p>
+                ) : null}
+                {!connectionsLoading && !suggestionCards.length ? (
+                  <p className="text-sm text-gray-500">
+                    Nenhuma sugestao disponivel no momento.
+                  </p>
+                ) : null}
+                {suggestionCards.map((person) => (
                   <FriendsCard
-                    key={`${person.tipo}-${person.nome}`}
+                    key={person.targetUid}
                     compact
                     {...person}
+                    onConnect={connect}
+                    isSubmitting={connectingUserUids.includes(person.targetUid ?? "")}
                   />
                 ))}
+                {connectionsError ? (
+                  <p className="text-sm text-red-600">{connectionsError}</p>
+                ) : null}
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white p-5 shadow-md border border-gray-100">
+            <div className="rounded-3xl border border-gray-100 bg-white p-5 shadow-md">
               <div className="flex items-start gap-3">
                 <div className="mt-1 rounded-full bg-primary/10 p-3 text-primary">
-                  🎓
+                  *
                 </div>
                 <div className="min-w-0">
                   <h2 className="text-lg font-bold text-black">
-                    Semana Acadêmica
+                    Semana Academica
                   </h2>
                   <p className="mt-2 text-sm text-gray-600">
-                    De 17 a 21 de março — palestras, workshops e networking.
+                    De 17 a 21 de marco - palestras, workshops e networking.
                     Inscreva-se agora!
                   </p>
                 </div>
