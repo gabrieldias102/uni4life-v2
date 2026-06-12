@@ -1,19 +1,56 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #ef5d39;
-  --color-soft: #fce3dc;
-  --color-background: #ece4dc;
-  --color-surface: #ffffff;
-  --color-ink: #e5e0dc;
-  --color-muted: #7a6a63;
-}
+@variant dark (&:where(.dark, .dark *));
 
 :root {
-  background-color: #ece4dc;
+  --app-primary: #ef5d39;
+  --app-cards: #FFFFFF;
+  --app-soft: #fce3dc;
+  --app-background: #ece4dc;
+  --app-surface: #ffffff;
+  --app-ink: #e5e0dc;
+  --app-muted: #7a6a63;
+  --app-highlight: #F9FAFB;
+  --app-navbar: #fff8f4;
+  --app-text-primary: #000000;
+  --app-text-secondary: #4A5565;
+  --app-text-tertiary: #6A7282;
+
+  background-color: var(--app-background);
   font-family: "Space Grotesk", sans-serif;
+}
+  
+:root.dark {
+  --app-primary: #ef5d39;
+  --app-cards:#2D2D32; 
+  --app-soft: #2a1f1c;   
+  --app-background: #1A1A1D; 
+  --app-surface: #1e1a18;    
+  --app-ink: #2c2623;
+  --app-muted: #f0f0f0;
+  --app-highlight: #3A3A40;  
+  --app-navbar: #1A1A1D;        
+  --app-text-primary: #FFFFFF;
+  --app-text-secondary: #A0A0A0;
+  --app-text-tertiary: #A0A0A0;
+}
+
+@theme {
+  --color-primary: var(--app-primary);
+  --color-soft: var(--app-soft);
+  --color-background: var(--app-background);
+  --color-surface: var(--app-surface);
+  --color-ink: var(--app-ink);
+  --color-muted: var(--app-muted);
+  --color-cards: var(--app-cards);
+  --color-highlight: var(--app-highlight);
+  --color-text-primary: var(--app-text-primary);
+  --color-text-secondary: var(--app-text-secondary);
+  --color-text-tertiary: var(--app-text-tertiary);
+  --color-navbar: var(--app-navbar);
 }
 
 body {
   margin: 0;
+  overflow-y: scroll;
 }
