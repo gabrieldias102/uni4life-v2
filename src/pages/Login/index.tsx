@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { useAuth } from "../../contexts/useAuth";
+import { ThemeToggle } from "../../components/ThemeTogle";
 
 const firebaseErrorMessages: Record<string, string> = {
   "auth/invalid-credential": "E-mail ou senha invalidos.",
@@ -45,7 +46,7 @@ export default function Login() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,#fff7f2,#ece4dc_60%)] px-6 py-12">
+    <main className="flex min-h-screen items-center justify-center bg-background px-6 py-12">
       <div className="grid w-full max-w-5xl overflow-hidden rounded-4xl bg-surface shadow-[0_24px_80px_rgba(122,106,99,0.18)] lg:grid-cols-[1.1fr_0.9fr]">
         <section className="hidden bg-[linear-gradient(160deg,#ef5d39,#ff8b6a)] p-12 text-white lg:flex lg:flex-col lg:justify-between">
           <div>
@@ -76,7 +77,7 @@ export default function Login() {
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
               Login
             </p>
-            <h2 className="mt-3 text-3xl font-bold text-zinc-900">
+            <h2 className="mt-3 text-3xl font-bold text-text-primary">
               Acesse sua conta
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted">
@@ -85,7 +86,7 @@ export default function Login() {
 
             <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   E-mail
                 </span>
                 <input
@@ -93,13 +94,13 @@ export default function Login() {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="voce@exemplo.com"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   Senha
                 </span>
                 <input
@@ -107,7 +108,7 @@ export default function Login() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="Sua senha"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards  px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
@@ -139,6 +140,9 @@ export default function Login() {
           </div>
         </section>
       </div>
+      <footer className="fixed bottom-5 right-5 z-50 ">
+        <ThemeToggle onlySwitch={true} />
+      </footer>
     </main>
   );
 }
