@@ -13,7 +13,7 @@ type ActionButtonProps = {
 const colorClasses = {
   primary: "border-primary bg-primary text-white",
   white: "border-gray-200 bg-white text-gray-700",
-  transparent: "border-gray-200 bg-transparent text-gray-700",
+  transparent: "border-text-tertiary bg-transparent text-text-secondary",
 };
 
 export default function ActionButton({
