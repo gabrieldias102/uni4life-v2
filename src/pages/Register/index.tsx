@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { FirebaseError } from "firebase/app";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
+import { ThemeToggle } from "../../components/ThemeTogle";
 
 const firebaseErrorMessages: Record<string, string> = {
   "auth/email-already-in-use": "Ja existe uma conta com este e-mail.",
@@ -53,14 +54,14 @@ export default function Register() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,#fff7f2,#ece4dc_60%)] px-6 py-12">
+    <main className="flex min-h-screen items-center justify-center bg-background px-6 py-12">
       <div className="grid w-full max-w-5xl overflow-hidden rounded-4xl bg-surface shadow-[0_24px_80px_rgba(122,106,99,0.18)] lg:grid-cols-[0.95fr_1.05fr]">
         <section className="flex items-center justify-center px-6 py-10 sm:px-10">
           <div className="w-full max-w-md">
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
               Cadastro
             </p>
-            <h1 className="mt-3 text-3xl font-bold text-zinc-900">
+            <h1 className="mt-3 text-3xl font-bold text-text-primary">
               Crie sua conta
             </h1>
             <p className="mt-3 text-sm leading-6 text-muted">
@@ -70,7 +71,7 @@ export default function Register() {
 
             <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   Nome
                 </span>
                 <input
@@ -78,13 +79,13 @@ export default function Register() {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   placeholder="Seu nome"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   Curso
                 </span>
                 <input
@@ -92,13 +93,13 @@ export default function Register() {
                   value={course}
                   onChange={(event) => setCourse(event.target.value)}
                   placeholder="Seu curso"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   E-mail
                 </span>
                 <input
@@ -106,13 +107,13 @@ export default function Register() {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="voce@exemplo.com"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   Senha
                 </span>
                 <input
@@ -120,13 +121,13 @@ export default function Register() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="Minimo de 6 caracteres"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-medium text-zinc-800">
+                <span className="mb-2 block text-sm font-medium text-text-primary">
                   Confirmar senha
                 </span>
                 <input
@@ -134,7 +135,7 @@ export default function Register() {
                   value={confirmPassword}
                   onChange={(event) => setConfirmPassword(event.target.value)}
                   placeholder="Repita sua senha"
-                  className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
+                  className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
               </label>
@@ -192,6 +193,9 @@ export default function Register() {
           </div>
         </section>
       </div>
+      <footer className="fixed bottom-5 right-5 z-50">
+        <ThemeToggle onlySwitch={true} />
+      </footer>
     </main>
   );
 }

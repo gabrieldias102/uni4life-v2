@@ -5,6 +5,7 @@ import { FaAddressBook, FaHouse } from "react-icons/fa6";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useAuth } from "../../contexts/useAuth";
 import NavbarItem from "../NavbarItem";
+import { ThemeToggle } from "../ThemeTogle";
 
 export default function Navbar() {
   const { logout, user } = useAuth();
@@ -26,7 +27,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-20 border-b border-black/5 bg-white/95 text-gray-500 backdrop-blur">
+    <nav className="sticky top-0 z-20 border-b border-black/5 bg-cards/95 text-text-tertiary backdrop-blur">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-10">
         <div className="flex items-center justify-between gap-3">
           <NavLink to="/feed" className="min-w-0" onClick={closeMobileMenu}>
@@ -75,15 +76,15 @@ export default function Navbar() {
             className="h-10 w-10 rounded-full"
           />
           <div className="min-w-0 max-w-52">
-            <p className="truncate text-sm font-semibold text-black">
+            <p className="truncate text-sm font-semibold text-text-primary">
               {displayName}
             </p>
-            <p className="truncate text-xs text-gray-500">{emailLabel}</p>
+            <p className="truncate text-xs text-text-tertiary">{emailLabel}</p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
-            className="rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-600 transition hover:border-primary hover:text-primary"
+            className="rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-g transition hover:border-primary hover:text-primary"
           >
             Sair
           </button>
@@ -92,7 +93,7 @@ export default function Navbar() {
         {isMobileMenuOpen ? (
           <div
             id="mobile-navigation-menu"
-            className="overflow-hidden rounded-3xl border border-[#f1dfd6] bg-[#fff8f4] shadow-sm lg:hidden"
+            className="overflow-hidden rounded-3xl border border-[#f1dfd6] bg-navbar shadow-sm lg:hidden"
           >
             <div className="flex items-center gap-3 border-b border-[#f1dfd6] px-4 py-4">
               <img
@@ -101,10 +102,10 @@ export default function Navbar() {
                 className="h-11 w-11 rounded-full"
               />
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-black">
+                <p className="truncate text-sm font-semibold text-text-primary">
                   {displayName}
                 </p>
-                <p className="truncate text-xs text-gray-500">{emailLabel}</p>
+                <p className="truncate text-xs text-text-tertiary">{emailLabel}</p>
               </div>
             </div>
 
@@ -129,11 +130,13 @@ export default function Navbar() {
                   <CgProfile />
                 </NavbarItem>
               </div>
-
+              <div>
+                <ThemeToggle/>
+              </div>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="mt-2 rounded-2xl border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600 transition hover:border-primary hover:text-primary"
+                className="mt-2 rounded-2xl border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-text-secondary transition hover:border-primary hover:text-primary"
               >
                 Sair
               </button>

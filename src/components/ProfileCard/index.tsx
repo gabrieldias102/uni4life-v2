@@ -44,7 +44,7 @@ export default function ProfileCard({
 
   if (loading) {
     return (
-      <div className="w-full rounded-2xl bg-white p-4 shadow-md">
+      <div className="w-full rounded-2xl bg-cards p-4 shadow-md">
         Carregando perfil...
       </div>
     );
@@ -52,7 +52,7 @@ export default function ProfileCard({
 
   if (error || !profile) {
     return (
-      <div className="w-full rounded-2xl bg-white p-4 shadow-md">
+      <div className="w-full rounded-2xl bg-cards p-4 shadow-md">
         {error || "Erro ao carregar perfil."}
       </div>
     );
@@ -60,7 +60,7 @@ export default function ProfileCard({
 
   if (compact) {
     return (
-      <div className="w-full rounded-2xl bg-white p-4 shadow-md">
+      <div className="w-full rounded-2xl bg-cards p-4 shadow-md">
         <div className="flex items-center gap-4">
           <img
             src={avatarUrl}
@@ -69,36 +69,36 @@ export default function ProfileCard({
           />
 
           <div className="min-w-0">
-            <h1 className="truncate text-lg font-bold text-black">
+            <h1 className="truncate text-lg font-bold text-text-primary">
               {displayName}
             </h1>
-            <p className="truncate text-sm text-gray-600">{courseLabel}</p>
+            <p className="truncate text-sm text-text-secondary">{courseLabel}</p>
             {showEmail ? (
-              <p className="truncate text-sm text-gray-600">{email}</p>
+              <p className="truncate text-sm text-text-secondary">{email}</p>
             ) : null}
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-gray-50 p-3 text-center text-sm text-gray-600">
+        <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-highlight p-3 text-center text-sm text-text-secondary">
           <div>
-            <p className="text-xl font-bold text-black">{totalPosts}</p>
+            <p className="text-xl font-bold text-text-primary">{totalPosts}</p>
             <p>Posts</p>
           </div>
           <div>
-            <p className="text-xl font-bold text-black">{totalConnections}</p>
+            <p className="text-xl font-bold text-text-primary">{totalConnections}</p>
             <p>Conexoes</p>
           </div>
         </div>
 
         <div className="mt-4 space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-tertiary">
             Conexoes recentes
           </p>
           {connectionsLoading ? (
-            <p className="text-sm text-gray-500">Carregando conexoes...</p>
+            <p className="text-sm text-text-tertiary">Carregando conexoes...</p>
           ) : null}
           {!connectionsLoading && !recentConnections.length ? (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-text-tertiary">
               Voce ainda nao possui conexoes recentes.
             </p>
           ) : null}
@@ -110,10 +110,10 @@ export default function ProfileCard({
                 className="h-10 w-10 rounded-full object-cover"
               />
               <div>
-                <p className="text-sm font-semibold text-black">
+                <p className="text-sm font-semibold text-text-primary">
                   {connection.nome}
                 </p>
-                <p className="text-xs text-gray-500">{connection.curso}</p>
+                <p className="text-xs text-text-tertiary">{connection.curso}</p>
               </div>
             </div>
           ))}
@@ -126,7 +126,7 @@ export default function ProfileCard({
   }
 
   return (
-    <div className="w-full rounded-2xl bg-white p-4 shadow-md sm:p-8">
+    <div className="w-full rounded-2xl bg-cards p-4 shadow-md sm:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
         <div className="flex items-center gap-4">
           <img
@@ -136,43 +136,43 @@ export default function ProfileCard({
           />
 
           <div className="min-w-0">
-            <h1 className="truncate text-2xl font-bold text-black">
+            <h1 className="truncate text-2xl font-bold text-text-primary">
               {displayName}
             </h1>
-            <p className="truncate text-sm text-gray-600">{courseLabel}</p>
+            <p className="truncate text-sm text-text-secondary">{courseLabel}</p>
             {showEmail ? (
-              <p className="truncate text-sm text-gray-600">{email}</p>
+              <p className="truncate text-sm text-text-secondary">{email}</p>
             ) : null}
           </div>
         </div>
 
-        <div className="rounded-2xl px-4 py-3 text-sm text-gray-600">
+        <div className="rounded-2xl px-4 py-3 text-sm text-text-secondary">
           <p>Desde: {memberSince}</p>
         </div>
       </div>
 
       <div className="mt-6 grid gap-4 border-t border-gray-100 pt-6">
-        <div className="grid grid-cols-2 gap-4 rounded-2xl bg-gray-50 p-4 text-center shadow-sm sm:p-6">
+        <div className="grid grid-cols-2 gap-4 rounded-2xl bg-highlight p-4 text-center shadow-sm sm:p-6">
           <div>
-            <p className="text-2xl font-bold text-black">{totalPosts}</p>
-            <p className="text-sm text-gray-500">Posts</p>
+            <p className="text-2xl font-bold text-text-primary">{totalPosts}</p>
+            <p className="text-sm text-text-tertiary">Posts</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-black">{totalConnections}</p>
-            <p className="text-sm text-gray-500">Conexoes</p>
+            <p className="text-2xl font-bold text-text-primary">{totalConnections}</p>
+            <p className="text-sm text-text-tertiary">Conexoes</p>
           </div>
         </div>
 
-        <div className="rounded-2xl bg-gray-50 p-4">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">
+        <div className="rounded-2xl bg-highlight p-4">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-text-tertiary">
             Conexoes recentes
           </p>
           <div className="space-y-3">
             {connectionsLoading ? (
-              <p className="text-sm text-gray-500">Carregando conexoes...</p>
+              <p className="text-sm text-text-tertiary">Carregando conexoes...</p>
             ) : null}
             {!connectionsLoading && !recentConnections.length ? (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-text-tertiary">
                 Voce ainda nao possui conexoes recentes.
               </p>
             ) : null}
@@ -184,10 +184,10 @@ export default function ProfileCard({
                   className="h-11 w-11 rounded-full object-cover"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-black">
+                  <p className="text-sm font-semibold text-text-primary">
                     {connection.nome}
                   </p>
-                  <p className="text-xs text-gray-500">{connection.curso}</p>
+                  <p className="text-xs text-text-tertiary">{connection.curso}</p>
                 </div>
               </div>
             ))}

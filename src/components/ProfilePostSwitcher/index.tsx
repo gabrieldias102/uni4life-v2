@@ -10,15 +10,15 @@ export default function ProfilePostSwitcher({
   onChange,
 }: ProfilePostSwitcherProps) {
   return (
-    <div className="w-full rounded-2xl bg-white p-3 shadow-sm sm:mt-8 sm:p-4">
-      <div className="grid grid-cols-2 rounded-2xl bg-gray-100 p-1 shadow-sm">
+    <div className="w-full rounded-2xl bg-cards p-3 shadow-sm sm:mt-8 sm:p-4">
+      <div className="grid grid-cols-2 rounded-2xl bg-highlight p-1 shadow-sm">
         <button
           type="button"
           onClick={() => onChange("published")}
           className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
             value === "published"
-              ? "bg-white text-primary shadow-sm"
-              : "text-gray-500 hover:text-gray-700"
+              ? "bg-cards text-primary shadow-sm"
+              : "text-text-tertiary hover:text-gray-200"
           }`}
         >
           Publicados
@@ -29,8 +29,8 @@ export default function ProfilePostSwitcher({
           onClick={() => onChange("republished")}
           className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
             value === "republished"
-              ? "bg-white text-primary shadow-sm"
-              : "text-gray-500 hover:text-gray-700"
+              ? "bg-cards text-primary shadow-sm"
+              : "text-text-tertiary hover:text-gray-200"
           }`}
         >
           Republicados

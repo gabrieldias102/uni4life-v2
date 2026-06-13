@@ -35,8 +35,8 @@ export default function FriendsCard({
     isConnected || disabled || isSubmitting || !onConnect || !targetUid;
   const shouldShowCuriosidade = !compact && showCuriosidade;
   const containerClasses = compact
-    ? "flex min-w-full items-center justify-between gap-3 rounded-3xl bg-slate-50 p-1 shadow-sm border border-gray-100"
-    : `flex min-w-full items-center rounded-lg bg-white p-4 shadow ${
+    ? "flex min-w-full items-center justify-between gap-3 rounded-3xl bg-highlight p-1"
+    : `flex min-w-full items-center rounded-lg bg-cards p-4 shadow ${
         shouldShowCuriosidade ? "gap-4" : "justify-between gap-6"
       }`;
   const avatarClasses = compact
@@ -60,8 +60,8 @@ export default function FriendsCard({
           <h3
             className={
               compact
-                ? "text-sm font-semibold text-black truncate"
-                : "truncate text-lg font-bold text-black"
+                ? "text-sm font-semibold text-text-primary truncate"
+                : "truncate text-lg font-bold text-text-primary"
             }
           >
             {nome}
@@ -69,8 +69,8 @@ export default function FriendsCard({
           <p
             className={
               compact
-                ? "text-xs font-medium text-gray-600 truncate"
-                : "truncate text-sm text-gray-600"
+                ? "text-xs font-medium text-text-secondary truncate"
+                : "truncate text-sm text-text-secondary"
             }
           >
             {curso}
@@ -82,7 +82,7 @@ export default function FriendsCard({
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
             Curiosidade
           </p>
-          <p className="mt-1 text-sm leading-relaxed text-gray-600">
+          <p className="mt-1 text-sm leading-relaxed text-text-secondary">
             {curiosidade}
           </p>
         </div>

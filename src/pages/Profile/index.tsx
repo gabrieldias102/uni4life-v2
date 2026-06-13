@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProfilePostList from "../../components/ProfilePostList";
 import ProfileCard from "../../components/ProfileCard";
+import { ThemeToggle } from "../../components/ThemeTogle";
 import ProfilePostSwitcher, {
   type ProfilePostView,
 } from "../../components/ProfilePostSwitcher";
@@ -19,6 +20,9 @@ export default function Profile() {
         <ProfilePostSwitcher value={activeView} onChange={setActiveView} />
         <ProfilePostList posts={posts} loading={loading} error={error} />
       </div>
+      <footer className="fixed bottom-5 right-5 z-50 hidden sm:block">
+        <ThemeToggle/>
+      </footer>
     </main>
   );
 }

@@ -1,6 +1,8 @@
 import FriendsCard from "../../components/FriendsCard";
 import { useAuth } from "../../contexts/useAuth";
 import { useConnections } from "../../hooks/useConnections";
+import { ThemeToggle } from "../../components/ThemeTogle";
+
 import {
   mapConnectionToFriendCard,
   mapSuggestionToFriendCard,
@@ -22,19 +24,19 @@ export default function Conections() {
   );
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col justify-center gap-6 px-4 pb-6 pt-12 sm:px-6">
-      <p className="text-3xl font-bold text-black">Conexoes</p>
+    <main className="mx-auto flex max-w-3xl flex-col justify-center gap-6 px-4 pb-6 pt-12 sm:px-6">
+      <p className="text-3xl font-bold text-text-primary">Conexoes</p>
       <div className="gap-5">
-        <p className="pb-4 text-md font-bold uppercase text-gray-600">
+        <p className="pb-4 text-md font-bold uppercase text-text-secondary">
           Sugestoes para voce
         </p>
         <div>
           <div className="flex flex-col gap-4 pb-12">
             {loading ? (
-              <p className="text-sm text-gray-500">Carregando sugestoes...</p>
+              <p className="text-sm text-text-tertiary">Carregando sugestoes...</p>
             ) : null}
             {!loading && !conectarList.length ? (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-text-tertiary">
                 Nenhuma sugestao disponivel no momento.
               </p>
             ) : null}
@@ -49,15 +51,15 @@ export default function Conections() {
             ))}
           </div>
 
-          <p className="pb-4 text-md font-bold uppercase text-gray-600">
+          <p className="pb-4 text-md font-bold uppercase text-text-secondary">
             Suas conexoes
           </p>
           <div className="flex flex-col gap-4">
             {loading ? (
-              <p className="text-sm text-gray-500">Carregando conexoes...</p>
+              <p className="text-sm text-text-tertiary">Carregando conexoes...</p>
             ) : null}
             {!loading && !amigosList.length ? (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-text-tertiary">
                 Voce ainda nao possui conexoes.
               </p>
             ) : null}
@@ -72,6 +74,9 @@ export default function Conections() {
           </div>
         </div>
       </div>
-    </div>
+      <footer className="fixed bottom-5 right-5 z-50 hidden sm:block">
+        <ThemeToggle/>
+      </footer>
+    </main>
   );
 }
