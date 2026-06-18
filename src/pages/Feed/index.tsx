@@ -21,7 +21,7 @@ export default function Feed() {
 
   return (
     <main className="min-h-screen bg-background px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-4 lg:gap-8">
+      <div className="mx-auto grid w-full max-w-360 gap-6 lg:grid-cols-4 lg:gap-8">
         <aside className="min-w-0 lg:col-span-1">
           <div className="sticky top-6">
             <ProfileCard compact showEmail={false} />
