@@ -41,11 +41,11 @@ export default function Feed() {
 
               <div className="mt-5 space-y-3">
                 {connectionsLoading ? (
-                  <p className="text-sm text-text-tertiary">Carregando sugestoes...</p>
+                  <p className="text-sm text-text-tertiary">Carregando sugestões...</p>
                 ) : null}
                 {!connectionsLoading && !suggestionCards.length ? (
                   <p className="text-sm text-text-tertiary">
-                    Nenhuma sugestao disponivel no momento.
+                    Nenhuma sugestão disponível no momento.
                   </p>
                 ) : null}
                 {suggestionCards.map((person) => (
@@ -70,7 +70,7 @@ export default function Feed() {
                 </div>
                 <div className="min-w-0">
                   <h2 className="text-lg font-bold text-text-primary">
-                    Semana Academica
+                    Semana Acadêmica
                   </h2>
                   <p className="mt-2 text-sm text-text-secondary">
                     De 17 a 21 de marco - palestras, workshops e networking.

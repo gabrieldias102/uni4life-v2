@@ -22,8 +22,8 @@ export default function ProfileCard({
 
   const displayName =
     profile?.full_name?.trim() || user?.displayName?.trim() || "Usuario";
-  const courseLabel = profile?.course || "Curso nao informado";
-  const email = user?.email || "Email nao informado";
+  const courseLabel = profile?.course || "Curso não informado";
+  const email = user?.email || "Email não informado";
   const avatarSeed = encodeURIComponent(displayName || email);
   const avatarUrl =
     user?.photoURL ||
@@ -34,7 +34,7 @@ export default function ProfileCard({
         month: "long",
         year: "numeric",
       }).format(new Date(user.metadata.creationTime))
-    : "Nao informado";
+    : "não informado";
 
   const totalPosts = profile?.post_count ?? 0;
   const totalConnections = profile?.connection_count ?? 0;
@@ -82,24 +82,24 @@ export default function ProfileCard({
         <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-highlight p-3 text-center text-sm text-text-secondary">
           <div>
             <p className="text-xl font-bold text-text-primary">{totalPosts}</p>
-            <p>Posts</p>
+            <p>Publicações</p>
           </div>
           <div>
             <p className="text-xl font-bold text-text-primary">{totalConnections}</p>
-            <p>Conexoes</p>
+            <p>Conexões</p>
           </div>
         </div>
 
         <div className="mt-4 space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-tertiary">
-            Conexoes recentes
+            Conexões recentes
           </p>
           {connectionsLoading ? (
-            <p className="text-sm text-text-tertiary">Carregando conexoes...</p>
+            <p className="text-sm text-text-tertiary">Carregando conexões...</p>
           ) : null}
           {!connectionsLoading && !recentConnections.length ? (
             <p className="text-sm text-text-tertiary">
-              Voce ainda nao possui conexoes recentes.
+              Voce ainda não possui conexões recentes.
             </p>
           ) : null}
           {recentConnections.map((connection) => (
@@ -155,25 +155,25 @@ export default function ProfileCard({
         <div className="grid grid-cols-2 gap-4 rounded-2xl bg-highlight p-4 text-center shadow-sm sm:p-6">
           <div>
             <p className="text-2xl font-bold text-text-primary">{totalPosts}</p>
-            <p className="text-sm text-text-tertiary">Posts</p>
+            <p className="text-sm text-text-tertiary">Publicações</p>
           </div>
           <div>
             <p className="text-2xl font-bold text-text-primary">{totalConnections}</p>
-            <p className="text-sm text-text-tertiary">Conexoes</p>
+            <p className="text-sm text-text-tertiary">Conexões</p>
           </div>
         </div>
 
         <div className="rounded-2xl bg-highlight p-4">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-text-tertiary">
-            Conexoes recentes
+            Conexões recentes
           </p>
           <div className="space-y-3">
             {connectionsLoading ? (
-              <p className="text-sm text-text-tertiary">Carregando conexoes...</p>
+              <p className="text-sm text-text-tertiary">Carregando conexões...</p>
             ) : null}
             {!connectionsLoading && !recentConnections.length ? (
               <p className="text-sm text-text-tertiary">
-                Voce ainda nao possui conexoes recentes.
+                Voce ainda não possui conexões recentes.
               </p>
             ) : null}
             {recentConnections.map((connection) => (

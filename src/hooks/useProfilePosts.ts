@@ -26,8 +26,8 @@ export function useProfilePosts(
         const fetchedPosts = await listUserPosts(uid);
         setAllPosts(fetchedPosts);
       } catch (err) {
-        console.error("Erro ao buscar os posts:", err);
-        setError("Não foi possível carregar os posts.");
+        console.error("Erro ao buscar as publicações:", err);
+        setError("Não foi possível carregar as publicações.");
       } finally {
         setLoading(false);
       }

@@ -127,7 +127,7 @@ export function useConnections(userUid: string | undefined) {
     if (!userUid) {
       setSuggestions([]);
       setConnections([]);
-      setError("Usuario autenticado nao encontrado.");
+      setError("Usuário autenticado não encontrado.");
       setLoading(false);
       return;
     }
@@ -144,16 +144,16 @@ export function useConnections(userUid: string | undefined) {
         setError(null);
         await refreshConnections(currentUserUid);
       } catch (err) {
-        console.error("Erro ao carregar conexoes:", err);
+        console.error("Erro ao carregar conexões:", err);
 
         if (err instanceof ApiError) {
           setError(
-            `Nao foi possivel carregar as conexoes. Status ${err.status}: ${err.message}`
+            `Não foi possível carregar as conexões. Status ${err.status}: ${err.message}`
           );
           return;
         }
 
-        setError("Nao foi possivel carregar as conexoes.");
+        setError("Não foi possível carregar as conexões.");
       } finally {
         setLoading(false);
       }
@@ -176,16 +176,16 @@ export function useConnections(userUid: string | undefined) {
       await createConnection(userUid, targetUid);
       await refreshConnections(userUid, { retries: 3, delayMs: 400 });
     } catch (err) {
-      console.error("Erro ao criar conexao:", err);
+      console.error("Erro ao criar a conexão:", err);
 
       if (err instanceof ApiError) {
         setError(
-          `Nao foi possivel criar a conexao. Status ${err.status}: ${err.message}`
+          `Não foi possível criar a conexão. Status ${err.status}: ${err.message}`
         );
         return;
       }
 
-      setError("Nao foi possivel criar a conexao.");
+      setError("Não foi possível criar a conexão.");
     } finally {
       setConnectingUserUids((current) =>
         current.filter((userId) => userId !== targetUid)

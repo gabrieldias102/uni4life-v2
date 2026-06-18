@@ -58,7 +58,7 @@ export default function Navbar() {
           <NavbarItem text="Feed" to="/feed">
             <FaHouse />
           </NavbarItem>
-          <NavbarItem text="Conexoes" to="/conections">
+          <NavbarItem text="Conexões" to="/conections">
             <FaAddressBook />
           </NavbarItem>
           <NavbarItem text="Publicar" to="/publish">
@@ -116,7 +116,7 @@ export default function Navbar() {
                 </NavbarItem>
               </div>
               <div onClick={closeMobileMenu}>
-                <NavbarItem text="Conexoes" to="/conections">
+                <NavbarItem text="Conexões" to="/conections">
                   <FaAddressBook />
                 </NavbarItem>
               </div>

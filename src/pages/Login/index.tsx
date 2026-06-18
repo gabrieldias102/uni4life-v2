@@ -6,8 +6,8 @@ import { useAuth } from "../../contexts/useAuth";
 import { ThemeToggle } from "../../components/ThemeTogle";
 
 const firebaseErrorMessages: Record<string, string> = {
-  "auth/invalid-credential": "E-mail ou senha invalidos.",
-  "auth/invalid-email": "Digite um e-mail valido.",
+  "auth/invalid-credential": "E-mail ou senha inválidos.",
+  "auth/invalid-email": "Digite um e-mail válido.",
   "auth/missing-password": "Digite sua senha para continuar.",
   "auth/too-many-requests":
     "Muitas tentativas. Tente novamente em alguns minutos.",
@@ -48,26 +48,26 @@ export default function Login() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6 py-12">
       <div className="grid w-full max-w-5xl overflow-hidden rounded-4xl bg-surface shadow-[0_24px_80px_rgba(122,106,99,0.18)] lg:grid-cols-[1.1fr_0.9fr]">
-        <section className="hidden bg-[linear-gradient(160deg,#ef5d39,#ff8b6a)] p-12 text-white lg:flex lg:flex-col lg:justify-between">
+        <section className="hidden bg-[linear-gradient(160deg,#ef5d39,#ff8b6a)] p-12 text-white lg:flex lg:flex-col lg:gap-2 lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/80">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-white/80">
               Uni4Life
             </p>
-            <h1 className="mt-6 max-w-sm text-5xl font-bold leading-tight">
-              Entre para acompanhar sua rede universitaria.
+            <h1 className="max-w-sm text-5xl font-bold leading-tight">
+              Entre para acompanhar sua rede universitária.
             </h1>
-            <p className="mt-6 max-w-md text-base leading-7 text-white/85">
-              Publique atualizacoes, acompanhe conexoes e mantenha seu perfil
-              sempre acessivel em um unico lugar.
+            <p className="my-4 max-w-md text-base leading-7 text-white/85">
+              Publique atualizacões, acompanhe suas conexões e mantenha seu perfil
+              sempre acessível em um único lugar.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm">
-            <p className="text-sm text-white/80">Acesso recomendado</p>
-            <p className="mt-2 text-2xl font-semibold">E-mail e senha</p>
-            <p className="mt-3 text-sm leading-6 text-white/80">
-              Ative o provedor de autenticacao no Firebase Console antes de
-              testar a tela.
+          <div className="rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm flex flex-col gap-2">
+            <p className="text-sm text-white/80 font-bold">Comunidade acadêmica</p>
+            <p className="text-2xl font-semibold">Exclusivo para alunos</p>
+            <p className="text-sm leading-6 text-white/80">
+              Conecte-se com colegas, participe de grupos de estudo e fique por dentro 
+              de tudo o que acontece no seu campus.
             </p>
           </div>
         </section>
@@ -81,7 +81,7 @@ export default function Login() {
               Acesse sua conta
             </h2>
             <p className="mt-3 text-sm leading-6 text-muted">
-              Use o mesmo e-mail e senha cadastrados no Firebase Authentication.
+              Insira o e-mail e a senha que você cadastrou na plataforma.
             </p>
 
             <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ export default function Login() {
             </form>
 
             <p className="mt-6 text-sm text-muted">
-              Ainda nao tem conta?{" "}
+              Ainda não tem conta?{" "}
               <Link
                 className="font-semibold text-primary hover:underline"
                 to="/register"

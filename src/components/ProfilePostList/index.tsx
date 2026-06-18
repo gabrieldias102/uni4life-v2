@@ -14,7 +14,7 @@ export default function ProfilePostList({
   if (loading) {
     return (
       <div className="w-full mt-4 rounded-2xl bg-cards p-5 text-center shadow-sm sm:p-8">
-        <p className="text-lg font-semibold text-text-primary">Carregando posts...</p>
+        <p className="text-lg font-semibold text-text-primary">Carregando publicações...</p>
       </div>
     );
   }
@@ -31,7 +31,7 @@ export default function ProfilePostList({
     return (
       <div className="w-full mt-4 rounded-2xl bg-cards p-5 text-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-text-primary">
-          Nenhum post encontrado.
+          Nenhuma publicação encontrada.
         </p>
       </div>
     );

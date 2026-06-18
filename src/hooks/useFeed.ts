@@ -11,7 +11,7 @@ export function useFeed(userUid: string | undefined) {
   useEffect(() => {
     if (!userUid) {
       setPosts([]);
-      setError("Usuario autenticado nao encontrado.");
+      setError("Usuário autenticado não encontrado.");
       setLoading(false);
       return;
     }
@@ -30,12 +30,12 @@ export function useFeed(userUid: string | undefined) {
 
         if (err instanceof ApiError) {
           setError(
-            `Nao foi possivel carregar o feed. Status ${err.status}: ${err.message}`
+            `Não foi possível carregar o feed. Status ${err.status}: ${err.message}`
           );
           return;
         }
 
-        setError("Nao foi possivel carregar o feed.");
+        setError("Não foi possível carregar o feed.");
       } finally {
         setLoading(false);
       }
