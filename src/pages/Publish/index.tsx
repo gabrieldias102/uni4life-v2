@@ -84,11 +84,13 @@ export default function Publish() {
 
         <div className="rounded-2xl bg-cards p-4 shadow-2xl">
           <div className="mb-4 flex items-center gap-4">
-            <img
-              src={authorAvatar}
-              alt={`Avatar de ${authorName}`}
-              className="h-16 w-16 rounded-full"
-            />
+            <div className="bg-avatar border border-muted/20 rounded-full h-16 w-16 shrink-0 flex items-center justify-center">
+              <img
+                src={authorAvatar}
+                alt={`Avatar de ${authorName}`}
+                className="object-cover w-full h-full rounded-full"
+              />
+            </div>
             <div>
               <h1 className="text-lg font-bold text-text-primary">{authorName}</h1>
               <p className="text-sm text-text-tertiary">{courseLabel}</p>

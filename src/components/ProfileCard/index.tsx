@@ -62,11 +62,13 @@ export default function ProfileCard({
     return (
       <div className="w-full rounded-2xl bg-cards p-4 shadow-md">
         <div className="flex items-center gap-4">
-          <img
-            src={avatarUrl}
-            alt={`Avatar de ${displayName}`}
-            className="h-16 w-16 rounded-2xl object-cover"
-          />
+          <div className="bg-avatar border border-muted/20 rounded-full h-12 w-12 shrink-0 flex items-center justify-center">
+            <img
+              src={avatarUrl}
+              alt={`Avatar de ${displayName}`}
+              className="object-cover w-full h-full rounded-full" 
+            />
+          </div>  
 
           <div className="min-w-0">
             <h1 className="truncate text-lg font-bold text-text-primary">
@@ -104,11 +106,13 @@ export default function ProfileCard({
           ) : null}
           {recentConnections.map((connection) => (
             <div key={connection.nome} className="flex items-center gap-3">
-              <img
-                src={connection.avatar}
-                alt={connection.nome}
-                className="h-10 w-10 rounded-full object-cover"
-              />
+              <div className="bg-avatar border border-muted/20 rounded-full h-10 w-10 shrink-0 flex items-center justify-center">
+                <img
+                  src={connection.avatar}
+                  alt={connection.nome}
+                  className="object-cover w-full h-full rounded-full"
+                />
+              </div>
               <div>
                 <p className="text-sm font-semibold text-text-primary">
                   {connection.nome}
@@ -129,11 +133,13 @@ export default function ProfileCard({
     <div className="w-full rounded-2xl bg-cards p-4 shadow-md sm:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
         <div className="flex items-center gap-4">
-          <img
-            src={avatarUrl}
-            alt={`Avatar de ${displayName}`}
-            className="h-20 w-20 rounded-full object-cover"
-          />
+          <div className="bg-avatar border border-muted/20 rounded-full h-20 w-20 shrink-0 flex items-center justify-center">
+            <img
+              src={avatarUrl}
+              alt={`Avatar de ${displayName}`}
+              className="object-cover w-full h-full rounded-full" 
+            />
+          </div>  
 
           <div className="min-w-0">
             <h1 className="truncate text-2xl font-bold text-text-primary">
@@ -178,11 +184,13 @@ export default function ProfileCard({
             ) : null}
             {recentConnections.map((connection) => (
               <div key={connection.nome} className="flex items-center gap-3">
-                <img
-                  src={connection.avatar}
-                  alt={connection.nome}
-                  className="h-11 w-11 rounded-full object-cover"
-                />
+                <div className="bg-avatar border border-muted/20 rounded-full h-11 w-11 shrink-0 flex items-center justify-center">
+                  <img
+                    src={connection.avatar}
+                    alt={connection.nome}
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
                 <div>
                   <p className="text-sm font-semibold text-text-primary">
                     {connection.nome}
