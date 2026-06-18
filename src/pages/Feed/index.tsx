@@ -21,18 +21,18 @@ export default function Feed() {
 
   return (
     <main className="min-h-screen bg-background px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-6 lg:grid-cols-4 lg:gap-8">
-        <aside className="lg:col-span-1">
+      <div className="mx-auto grid w-full max-w-360 gap-6 lg:grid-cols-4 lg:gap-8">
+        <aside className="min-w-0 lg:col-span-1">
           <div className="sticky top-6">
             <ProfileCard compact showEmail={false} />
           </div>
         </aside>
 
-        <section className="lg:col-span-2">
+        <section className="min-w-0 lg:col-span-2">
           <ProfilePostList posts={posts} loading={loading} error={error} />
         </section>
 
-        <aside className="lg:w-96">
+        <aside className="min-w-0 lg:col-span-1">
           <div className="sticky top-6 space-y-4">
             <div className="rounded-3xl bg-cards p-5 shadow-md">
               <h2 className="mb-2 text-lg font-bold text-text-primary">
@@ -41,11 +41,11 @@ export default function Feed() {
 
               <div className="mt-5 space-y-3">
                 {connectionsLoading ? (
-                  <p className="text-sm text-text-tertiary">Carregando sugestoes...</p>
+                  <p className="text-sm text-text-tertiary">Carregando sugestões...</p>
                 ) : null}
                 {!connectionsLoading && !suggestionCards.length ? (
                   <p className="text-sm text-text-tertiary">
-                    Nenhuma sugestao disponivel no momento.
+                    Nenhuma sugestão disponível no momento.
                   </p>
                 ) : null}
                 {suggestionCards.map((person) => (
@@ -65,12 +65,10 @@ export default function Feed() {
 
             <div className="rounded-3xl bg-cards p-5 shadow-md">
               <div className="flex items-start gap-3">
-                <div className="mt-1 rounded-full bg-primary/10 p-3 text-primary">
-                  *
-                </div>
+                <div className="mt-1 h-14 w-14 rounded-full bg-primary/40 p-3 text-primary shrink-0"></div>
                 <div className="min-w-0">
                   <h2 className="text-lg font-bold text-text-primary">
-                    Semana Academica
+                    Semana Acadêmica
                   </h2>
                   <p className="mt-2 text-sm text-text-secondary">
                     De 17 a 21 de marco - palestras, workshops e networking.

@@ -7,6 +7,7 @@ import { ThemeToggle } from "../../components/ThemeTogle";
 import { useAuth } from "../../contexts/useAuth";
 import { ApiError } from "../../services/api";
 import { createPost } from "../../services/posts";
+import { useUserProfile } from "../../hooks/useUserProfile";
 
 function getAvatarUrl(name: string) {
   return `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(name)}`;
@@ -16,10 +17,12 @@ export default function Publish() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [content, setContent] = useState("");
+  const { profile } = useUserProfile(user?.uid);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const authorName = user?.displayName?.trim() || "Seu perfil";
-  const authorProfession = user?.email || "Sessao ativa";
+  const courseLabel = profile?.course || "Sessão ativa";
+
   const authorAvatar = user?.photoURL || getAvatarUrl(authorName);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -34,7 +37,7 @@ export default function Publish() {
 
     if (!user?.uid) {
       setErrorMessage(
-        "Nao foi possivel identificar um user_id numerico a partir da sua sessao.",
+        "Não foi possível identificar um user_id numérico a partir da sua sessão.",
       );
       return;
     }
@@ -56,7 +59,7 @@ export default function Publish() {
       const message =
         error instanceof ApiError
           ? error.message
-          : "Nao foi possivel publicar agora. Tente novamente.";
+          : "Não foi possível publicar agora. Tente novamente.";
 
       setErrorMessage(message);
     } finally {
@@ -81,14 +84,16 @@ export default function Publish() {
 
         <div className="rounded-2xl bg-cards p-4 shadow-2xl">
           <div className="mb-4 flex items-center gap-4">
-            <img
-              src={authorAvatar}
-              alt={`Avatar de ${authorName}`}
-              className="h-16 w-16 rounded-full"
-            />
+            <div className="bg-avatar border border-muted/20 rounded-full h-16 w-16 shrink-0 flex items-center justify-center">
+              <img
+                src={authorAvatar}
+                alt={`Avatar de ${authorName}`}
+                className="object-cover w-full h-full rounded-full"
+              />
+            </div>
             <div>
               <h1 className="text-lg font-bold text-text-primary">{authorName}</h1>
-              <p className="text-sm text-text-tertiary">{authorProfession}</p>
+              <p className="text-sm text-text-tertiary">{courseLabel}</p>
             </div>
           </div>
 
@@ -97,7 +102,7 @@ export default function Publish() {
               value={content}
               onChange={(event) => setContent(event.target.value)}
               className="h-40 w-full resize-none rounded-lg text-text-primary border border-gray-200 p-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="O que voce quer compartilhar com a comunidade?"
+              placeholder="O que você deseja compartilhar com a comunidade?"
               disabled={isSubmitting}
             />
 

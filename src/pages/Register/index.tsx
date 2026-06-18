@@ -6,14 +6,14 @@ import { useAuth } from "../../contexts/useAuth";
 import { ThemeToggle } from "../../components/ThemeTogle";
 
 const firebaseErrorMessages: Record<string, string> = {
-  "auth/email-already-in-use": "Ja existe uma conta com este e-mail.",
-  "auth/invalid-email": "Digite um e-mail valido.",
+  "auth/email-already-in-use": "Já existe uma conta com este e-mail.",
+  "auth/invalid-email": "Digite um e-mail válido.",
   "auth/missing-password": "Digite uma senha para continuar.",
   "auth/weak-password": "Sua senha precisa ter pelo menos 6 caracteres.",
 };
 
 export default function Register() {
-  const { register, user, isRegistering } = useAuth();
+  const { register, user, isRegistering } = useAuth()
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
   const [email, setEmail] = useState("");
@@ -43,10 +43,10 @@ export default function Register() {
       if (err instanceof FirebaseError) {
         setError(
           firebaseErrorMessages[err.code] ??
-            "Nao foi possivel criar a conta agora.",
+            "Não foi possivel criar a conta agora.",
         );
       } else {
-        setError("Nao foi possivel criar a conta agora.");
+        setError("Não foi possivel criar a conta agora.");
       }
     } finally {
       setIsSubmitting(false);
@@ -65,8 +65,7 @@ export default function Register() {
               Crie sua conta
             </h1>
             <p className="mt-3 text-sm leading-6 text-muted">
-              Preencha seus dados para acessar a plataforma com Firebase
-              Authentication.
+              Preencha seus dados para fazer parte da nossa rede universitária.
             </p>
 
             <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
@@ -120,7 +119,7 @@ export default function Register() {
                   type="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Minimo de 6 caracteres"
+                  placeholder="Mínimo de 6 caracteres"
                   className="w-full rounded-2xl border border-zinc-200 bg-cards px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-4 focus:ring-soft"
                   required
                 />
@@ -156,7 +155,7 @@ export default function Register() {
             </form>
 
             <p className="mt-6 text-sm text-muted">
-              Ja tem uma conta?{" "}
+              Já tem uma conta?{" "}
               <Link
                 className="font-semibold text-primary hover:underline"
                 to="/login"
@@ -168,27 +167,25 @@ export default function Register() {
         </section>
 
         <section className="hidden bg-[linear-gradient(160deg,#2e2622,#7a6a63)] p-12 text-white lg:flex lg:flex-col lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/75">
+          <div className="flex flex-col gap-4">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-white/75">
               Comunidade
             </p>
-            <h2 className="mt-6 max-w-sm text-5xl font-bold leading-tight">
+            <h2 className="max-w-sm text-5xl font-bold leading-tight">
               Monte seu perfil e comece a se conectar.
             </h2>
-            <p className="mt-6 max-w-md text-base leading-7 text-white/80">
-              Depois do cadastro, voce entra automaticamente e ja pode acessar
-              feed, conexoes, publicacoes e perfil.
+            <p className="max-w-md text-base leading-7 text-white/80">
+              Depois do cadastro, você entra automaticamente e já pode acessar
+              o feed, suas conexões, publicações e perfil.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/15 bg-white/8 p-6 backdrop-blur-sm">
-            <p className="text-sm text-white/70">Importante</p>
-            <p className="mt-2 text-2xl font-semibold">
-              Ative o provedor de e-mail
-            </p>
-            <p className="mt-3 text-sm leading-6 text-white/75">
-              No Firebase Console, habilite Email/Password em Authentication
-              para o cadastro funcionar.
+          <div className="rounded-3xl border border-white/15 bg-white/8 p-6 backdrop-blur-sm flex flex-col gap-2">
+            <p className="text-sm text-white/70">Ambiente colaborativo</p>
+            <p className="text-2xl font-semibold">Potencialize sua jornada</p>
+            <p className="text-sm leading-6 text-white/75">
+              Conecte-se com alunos de diversos cursos, troque experiências, materiais 
+              de estudo e expanda seu networking acadêmico.
             </p>
           </div>
         </section>

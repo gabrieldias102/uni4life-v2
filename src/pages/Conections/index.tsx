@@ -25,19 +25,19 @@ export default function Conections() {
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col justify-center gap-6 px-4 pb-6 pt-12 sm:px-6">
-      <p className="text-3xl font-bold text-text-primary">Conexoes</p>
+      <p className="text-3xl font-bold text-text-primary">Conexões</p>
       <div className="gap-5">
         <p className="pb-4 text-md font-bold uppercase text-text-secondary">
-          Sugestoes para voce
+          Sugestões para você
         </p>
         <div>
           <div className="flex flex-col gap-4 pb-12">
             {loading ? (
-              <p className="text-sm text-text-tertiary">Carregando sugestoes...</p>
+              <p className="text-sm text-text-tertiary">Carregando sugestões...</p>
             ) : null}
             {!loading && !conectarList.length ? (
               <p className="text-sm text-text-tertiary">
-                Nenhuma sugestao disponivel no momento.
+                Nenhuma sugestão disponível no momento.
               </p>
             ) : null}
             {conectarList.map((friend) => (
@@ -52,15 +52,15 @@ export default function Conections() {
           </div>
 
           <p className="pb-4 text-md font-bold uppercase text-text-secondary">
-            Suas conexoes
+            Suas conexões
           </p>
           <div className="flex flex-col gap-4">
             {loading ? (
-              <p className="text-sm text-text-tertiary">Carregando conexoes...</p>
+              <p className="text-sm text-text-tertiary">Carregando conexões...</p>
             ) : null}
             {!loading && !amigosList.length ? (
               <p className="text-sm text-text-tertiary">
-                Voce ainda nao possui conexoes.
+                Você ainda não possui conexões.
               </p>
             ) : null}
             {amigosList.map((friend) => (

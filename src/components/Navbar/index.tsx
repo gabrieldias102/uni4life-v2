@@ -27,7 +27,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-20 border-b border-black/5 bg-cards/95 text-text-tertiary backdrop-blur">
+    <nav className="sticky top-0 left-0 w-full z-20 border-b border-black/5 bg-cards/95 text-text-tertiary backdrop-blur">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-10">
         <div className="flex items-center justify-between gap-3">
           <NavLink to="/feed" className="min-w-0" onClick={closeMobileMenu}>
@@ -58,7 +58,7 @@ export default function Navbar() {
           <NavbarItem text="Feed" to="/feed">
             <FaHouse />
           </NavbarItem>
-          <NavbarItem text="Conexoes" to="/conections">
+          <NavbarItem text="Conexões" to="/conections">
             <FaAddressBook />
           </NavbarItem>
           <NavbarItem text="Publicar" to="/publish">
@@ -70,11 +70,13 @@ export default function Navbar() {
         </section>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <img
-            src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${avatarSeed}`}
-            alt="Avatar"
-            className="h-10 w-10 rounded-full"
-          />
+          <div className="bg-avatar border border-muted/20 rounded-full h-10 w-10 shrink-0 flex items-center justify-center">
+            <img
+              src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${avatarSeed}`}
+              alt="Avatar"
+              className="object-cover w-full h-full rounded-full"
+            />
+          </div>
           <div className="min-w-0 max-w-52">
             <p className="truncate text-sm font-semibold text-text-primary">
               {displayName}
@@ -96,11 +98,13 @@ export default function Navbar() {
             className="overflow-hidden rounded-3xl border border-[#f1dfd6] bg-navbar shadow-sm lg:hidden"
           >
             <div className="flex items-center gap-3 border-b border-[#f1dfd6] px-4 py-4">
-              <img
-                src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${avatarSeed}`}
-                alt="Avatar"
-                className="h-11 w-11 rounded-full"
-              />
+              <div className="bg-avatar border border-muted/20 rounded-full h-11 w-11 shrink-0 flex items-center justify-center">
+                <img
+                  src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${avatarSeed}`}
+                  alt="Avatar"
+                  className="object-cover w-full h-full rounded-full"
+                />
+              </div>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-text-primary">
                   {displayName}
@@ -116,7 +120,7 @@ export default function Navbar() {
                 </NavbarItem>
               </div>
               <div onClick={closeMobileMenu}>
-                <NavbarItem text="Conexoes" to="/conections">
+                <NavbarItem text="Conexões" to="/conections">
                   <FaAddressBook />
                 </NavbarItem>
               </div>

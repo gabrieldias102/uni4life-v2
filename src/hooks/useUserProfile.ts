@@ -11,7 +11,7 @@ export function useUserProfile(userUid: string | undefined) {
   useEffect(() => {
     if (!userUid) {
       setProfile(null);
-      setError("Usuario autenticado nao encontrado.");
+      setError("Usuário autenticado não encontrado.");
       setLoading(false);
       return;
     }
@@ -36,7 +36,7 @@ export function useUserProfile(userUid: string | undefined) {
             details: err.details,
           });
           setError(
-            `Nao foi possivel carregar o perfil. Status ${err.status}: ${err.message}`
+            `Não foi possível carregar o perfil. Status ${err.status}: ${err.message}`
           );
           return;
         }
@@ -45,7 +45,7 @@ export function useUserProfile(userUid: string | undefined) {
           userUid: currentUserUid,
           error: err,
         });
-        setError("Nao foi possivel carregar o perfil.");
+        setError("Não foi possível carregar o perfil.");
       } finally {
         setLoading(false);
       }

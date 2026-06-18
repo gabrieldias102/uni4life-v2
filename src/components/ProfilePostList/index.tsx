@@ -14,7 +14,7 @@ export default function ProfilePostList({
   if (loading) {
     return (
       <div className="w-full mt-4 rounded-2xl bg-cards p-5 text-center shadow-sm sm:p-8">
-        <p className="text-lg font-semibold text-text-primary">Carregando posts...</p>
+        <p className="text-lg font-semibold text-text-primary">Carregando publicações...</p>
       </div>
     );
   }
@@ -31,7 +31,7 @@ export default function ProfilePostList({
     return (
       <div className="w-full mt-4 rounded-2xl bg-cards p-5 text-center shadow-sm sm:p-8">
         <p className="text-lg font-semibold text-text-primary">
-          Nenhum post encontrado.
+          Nenhuma publicação encontrada.
         </p>
       </div>
     );
@@ -45,11 +45,13 @@ export default function ProfilePostList({
           className="rounded-2xl bg-cards p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5"
         >
           <div className="mb-4 flex items-center gap-4">
-            <img
-              src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${post.author?.username}`}
-              alt={`Foto de perfil de ${post.author?.full_name}`}
-              className="h-14 w-14 rounded-full object-cover"
-            />
+            <div className="bg-avatar border border-muted/20 rounded-full h-14 w-14 shrink-0 flex items-center justify-center">
+              <img
+                src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${post.author?.username}`}
+                alt={`Foto de perfil de ${post.author?.full_name}`}
+                className="object-cover w-full h-full rounded-full"
+              />
+            </div>
             <div className="flex-1">
               <h2 className="text-lg font-bold text-text-primary">
                 {post.author?.full_name}

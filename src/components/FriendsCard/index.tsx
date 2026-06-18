@@ -40,8 +40,8 @@ export default function FriendsCard({
         shouldShowCuriosidade ? "gap-4" : "justify-between gap-6"
       }`;
   const avatarClasses = compact
-    ? "h-12 w-12 rounded-full object-cover"
-    : "h-14 w-14 rounded-full object-cover";
+    ? "bg-avatar border border-muted/20 h-12 w-12 rounded-full shrink-0 flex items-center justify-center"
+    : "bg-avatar border border-muted/20 h-14 w-14 rounded-full shrink-0 flex items-center justify-center";
   const actionWrapperClasses = compact
     ? "shrink-0"
     : shouldShowCuriosidade
@@ -51,11 +51,13 @@ export default function FriendsCard({
   return (
     <div className={containerClasses}>
       <div className="flex min-w-0 items-center gap-3">
-        <img
-          src={avatar}
-          alt={`Foto de perfil de ${nome}`}
-          className={avatarClasses}
-        />
+        <div className={avatarClasses}>
+          <img
+            src={avatar}
+            alt={`Foto de perfil de ${nome}`}
+            className="object-cover w-full h-full rounded-full"
+          />
+        </div>
         <div className="min-w-0">
           <h3
             className={

@@ -12,6 +12,7 @@
   --app-muted: #7a6a63;
   --app-highlight: #F9FAFB;
   --app-navbar: #fff8f4;
+  --app-avatar: #e5e0dc;
   --app-text-primary: #000000;
   --app-text-secondary: #4A5565;
   --app-text-tertiary: #6A7282;
@@ -29,7 +30,8 @@
   --app-ink: #2c2623;
   --app-muted: #f0f0f0;
   --app-highlight: #3A3A40;  
-  --app-navbar: #1A1A1D;        
+  --app-navbar: #1A1A1D;       
+  --app-avatar: #515153; 
   --app-text-primary: #FFFFFF;
   --app-text-secondary: #A0A0A0;
   --app-text-tertiary: #A0A0A0;
@@ -44,10 +46,11 @@
   --color-muted: var(--app-muted);
   --color-cards: var(--app-cards);
   --color-highlight: var(--app-highlight);
+  --color-navbar: var(--app-navbar);
+  --color-avatar: var(--app-avatar);
   --color-text-primary: var(--app-text-primary);
   --color-text-secondary: var(--app-text-secondary);
   --color-text-tertiary: var(--app-text-tertiary);
-  --color-navbar: var(--app-navbar);
 }
 
 body {
